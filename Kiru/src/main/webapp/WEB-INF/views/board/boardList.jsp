@@ -81,7 +81,7 @@
 									<li><a href="/sesoc/">메인화면</a></li>
 									<li class="dropdown"><a href="#">추천 의상</a>
 										<ul class="dropdown-menu" style="">
-											<li><a href="/sesoc/member/bodychkForm">체형 입력</a></li>
+											<li><a href="/sesoc/styling/bodychkForm">체형 입력</a></li>
 											<li><a href="/sesoc/styling/selectGenre">추천 의상 선택</a></li>
 										</ul>
 									</li>

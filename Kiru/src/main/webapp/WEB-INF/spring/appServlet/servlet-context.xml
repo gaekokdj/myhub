@@ -23,6 +23,23 @@
 	
 	<context:component-scan base-package="com.kiru.sesoc" />
 	
+	<!-- interceptor 등록 -->
+	<beans:bean id="loginInterceptor" class="com.kiru.sesoc.interceptor.LoginInterceptor" />
 	
+	<!-- 아래 주석을 제거하여 interceptor 적용 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/styling/**"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+	<!-- 아래 주석을 제거하여 interceptor 적용 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/**"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

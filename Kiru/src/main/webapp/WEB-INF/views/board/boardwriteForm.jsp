@@ -7,10 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>여기는 게!!!! 식!!!! 빵!!!!</title>
+<title>게시판</title>
 </head>
 <body>
-<h1>완전 개판이네!!!!!</h1>
 
 <h1>[글쓰기]</h1>
 
