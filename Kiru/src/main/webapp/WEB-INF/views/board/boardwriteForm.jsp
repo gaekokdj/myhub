@@ -44,7 +44,7 @@
 		</tr>
 		<tr>
 			<td class="right" colspan="2">
-				<input type="submit" value="등to_the_록" onclick="return boardList()">
+				<input type="submit" value="등록" onclick="return boardList()">
 				<a href="/sesoc/board/boardList"><input type="button" value="취소"></a>
 			</td>
 		</tr>	
