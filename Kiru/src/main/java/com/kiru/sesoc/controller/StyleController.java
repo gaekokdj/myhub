@@ -30,6 +30,7 @@ public class StyleController {
 	@Autowired
 	private StyleService service;
 	
+	//体系分析
 	@RequestMapping(value = "/bodychkForm", method = RequestMethod.GET)
 	public String bodychkForm() {
 		return "/styling/bodychkForm";
