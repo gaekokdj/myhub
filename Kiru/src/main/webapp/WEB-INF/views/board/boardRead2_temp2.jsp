@@ -1,0 +1,298 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="INSPIRO" />
+<meta name="description" content="Themeforest Template Polo">
+
+<title>kiru</title>
+
+<link href="/sesoc/resources/css/plugins.css" rel="stylesheet">
+<link href="/sesoc/resources/css/style.css" rel="stylesheet">
+<link href="/sesoc/resources/css/responsive.css" rel="stylesheet">
+<style>
+	pre {
+		white-space: pre-wrap;
+		font-size: 1em;
+	    font-style: normal;
+	    font-weight: 400;
+	    text-transform: none;
+	    line-height: 1.6;
+	    letter-spacing: 0;
+	    font-family: "Open Sans", "Helvetica", "Arial", sans-serif;
+	}
+	.bgc {
+		background-color: #ececec;
+	}
+	.bg-white {
+		background-color: white;
+	}
+	
+</style>
+
+<script src="/sesoc/resources/js/jquery.js"></script>
+<script src="/sesoc/resources/js/plugins.js"></script>
+<script src="/sesoc/resources/js/functions.js"></script>
+<script>
+	
+	function go() {
+		var form = document.go;
+		form.action = "insert_like_check";
+		form.method = "POST";
+		form.submit();
+	}
+	
+	function to() {
+		var form = document.to;
+		form.action = "delete_like_check";
+		form.method = "POST";
+		form.submit();
+	}
+	function goReturn() {
+		location.href = "/sesoc/board/boardList";
+	}
+	
+	function goDelete() {
+		var form = document.forms;
+		form.action = "deleteBoard";
+		form.method = "POST";
+		form.submit();
+	}
+	function goUpdate() {
+		var form = document.forms;
+		form.action = "goUpdateBoard";
+		form.method = "POST";
+		form.submit();
+	}
+</script>
+
+</head>
+
+
+
+
+<body data-animation-in="fadeIn"  data-animation-out="fadeOut" data-icon="12" data-icon-color="#76aa00" data-speed-in="1000" data-speed-out="500">
+ 
+ 
+    <!-- MAIN WRAPPER -->
+    <div class="wrapper">
+ 
+        <!-- HEADER -->
+        <header id="header" data-transparent="true" data-fullwidth="true"  class="">
+			<div class="header-inner">
+				<div class="container">
+				
+					<div id="logo">
+						<a href="./" class="logo" data-src-dark="/sesoc/resources/img/css/logo.png">
+							<img src="/sesoc/resources/img/css/logo.png" alt="">
+						</a>
+					</div>
+		
+					<div id="mainMenu-trigger">
+						<button class="lines-button x"> <span class="lines"></span> </button>
+					</div>
+		
+					<div id="mainMenu">
+						<div class="container">
+							<nav>
+								<ul>
+								
+									<li><a href="./">메인화면</a></li>
+									<li class="dropdown"><a href="#">추천 의상</a>
+										<ul class="dropdown-menu" style="">
+											<li><a href="#">체형 입력</a></li>
+											<li><a href="#">추천 의상 선택</a></li>
+										</ul>
+									</li>
+									<li><a href="#">게시판</a></li>
+									<li><a href="#">찜 의상</a></li>
+									<li><a href="./">로그아웃</a></li>
+									
+									<li class="dropdown"><a href="#">회원</a>
+										<ul class="dropdown-menu" style="">
+											<li><a href="#">회원 가입</a></li>
+										</ul>
+									</li>
+									
+								</ul>
+							</nav>
+						</div>
+					</div>
+		
+				</div>
+			</div>
+		</header>
+        <!-- END: HEADER -->
+        
+        
+        <!-- Page title -->
+        <section id="page-title" class="dark" style="background: url(/sesoc/resources/images/pattern/pattern10.png)">
+            <div class="container">
+                <div class="page-title">
+                    <h1>게시글 작성</h1>
+                    <span>Simple page title with pattern background</span>
+                </div>
+            </div>
+        </section>
+        <!-- end: Page title -->
+ 
+		<!-- Section -->
+		<form name="writeFrom" action="boardwrite" method="post">
+			<section>
+			  <div class="container bgc"> 
+			  
+				<div class="heading-text heading-line text-center">
+					<h3>Title</h3>
+					<input type="text" class="form-control" name="board_name" value="">
+				</div>
+			    
+			    <div class="row">
+			    	<div class="col-lg-10">
+			    		<div class="blockquote">
+			    			<p>내용</p>
+							<textarea name="board_content" rows="8" cols="100"></textarea>
+							
+						</div>
+			    	</div>
+			    </div>
+			    
+			    <!--Images -->
+			    <div class="row">
+			    	<c:if test="${ list != null }">
+			    		<div class="col-lg-3">
+					        <h4>겉옷</h4>
+					        <img src="${list.outer_photo_name}" class="img-fluid img-thumbnail" alt="" > </div>
+			    		<div class="col-lg-3">
+							<h4>상의</h4>
+					        <img src="${list.top_photo_name}" class="img-fluid img-thumbnail" alt="" > </div>
+						<div class="col-lg-3">
+					        <h4>하의</h4>
+					        <img src="${list.bottom_photo_name}" class="img-fluid img-thumbnail" alt="" > </div>
+						<div class="col-lg-3">
+					        <h4>신발</h4>
+					        <img src="${list.shoes_photo_name}" class="img-fluid img-thumbnail" alt=""> </div>
+					    <input type="hidden" name="outer_num" value="${mnvo.outer_num}" >
+					    <input type="hidden" name="top_num" value="${mnvo.top_num}" >
+					    <input type="hidden" name="bottom_num" value="${mnvo.bottom_num}" >
+					    <input type="hidden" name="shoes_num" value="${mnvo.shoes_num}" >
+			    	</c:if>
+			    	<c:if test="${ list == null }">
+				      <div class="col-lg-3">
+				        <h4>상의</h4>
+				        <img src="/sesoc/resources/images/other/400x250.png" class="img-fluid img-thumbnail" alt="" > </div>
+				      <div class="col-lg-3">
+				        <h4>하의</h4>
+				        <img src="/sesoc/resources/images/other/400x250.png" class="img-fluid img-thumbnail" alt="" > </div>
+				      <div class="col-lg-3">
+				        <h4>신발</h4>
+				        <img src="/sesoc/resources/images/other/400x250.png" class="img-fluid img-thumbnail" alt=""> </div>
+				        <div class="col-lg-3">
+				        <h4>겉옷</h4>
+				        <img src="/sesoc/resources/images/other/400x250.png" class="img-fluid img-thumbnail" alt="" > </div>
+			        </c:if>
+			         <div class="text-center m-3">
+						<input type="submit" class="btn" value="글등록" />
+					</div>
+			    </form>
+			    </div>
+			    <!--END: Images --> 
+			    
+			   
+				
+				
+			  </div>
+			</section>
+				
+			<!-- end: Section -->        
+
+         
+        <!-- Footer -->
+		<footer id="footer">
+			<div class="footer-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+								<a href="#"><i class="far fa-clock"></i></a>
+								</div>
+								<h3>Working Days</h3>
+								<p><strong>Monday - Friday</strong>
+								<br>09:00 AM - 10:00 PM</p>
+								<p><strong>Saturday - Sunday</strong>
+								<br>10:00 AM - 06:00 PM</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+									<a href="#"><i class="fas fa-map-marker-alt"></i></a>
+								</div>
+								<h3>Caffe Location</h3>
+								<p><strong>Caffe Address:</strong>
+									<br> 795 Folsom Ave, Suite 600
+									<br> San Francisco, CA 94107
+									<br>
+									<br>
+								</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+								<a href="#"><i class="fa fa-phone"></i></a>
+								</div>
+								<h3>Caffe Contact</h3>
+									<p><strong>Phone:</strong>
+										<br> (123) 456-7890
+										<br> (987) 654-3210
+										<br>
+									</p>
+							</div>
+						</div>
+					</div>
+      			</div>
+    		</div>
+		    <div class="copyright-content">
+		      <div class="container">
+         
+		         <div class="row">
+		            <div class="col-lg-6">
+		              <!-- Social icons -->
+		              <div class="social-icons social-icons-colored float-left">
+		                <ul>
+		                    <li class="social-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
+		                  <li class="social-facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+		                  <li class="social-twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+		                  <li class="social-vimeo"><a href="#"><i class="fab fa-vimeo"></i></a></li>
+		                  <li class="social-youtube"><a href="#"><i class="fab fa-youtube"></i></a></li>
+		                  <li class="social-pinterest"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+		                  <li class="social-gplus"><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+		                </ul>
+		              </div>
+		              <!-- end: Social icons --> 
+		          </div>
+
+					<div class="col-lg-6">
+				<div class="copyright-text text-center">&copy; 2019 POLO -  Responsive Multi-Purpose HTML5 Template. All Rights Reserved.<a href="http://www.inspiro-media.com" target="_blank">INSPIRO</a> </div>
+			</div>
+		</div>
+      </div>
+    </div>
+  </footer>
+  <!-- end: Footer -->
+ 
+    </div>
+    <!-- END: MAIN WRAPPER -->
+     
+     
+</body>
+</html>

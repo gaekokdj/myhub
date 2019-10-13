@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.kiru.sesoc.vo.Usertable" alias="Usertable" />
+		<typeAlias type="com.kiru.sesoc.vo.Recommeddress" alias="Recommeddress" />
+		<typeAlias type="com.kiru.sesoc.vo.Bottom" alias="Bottom" />
+		<typeAlias type="com.kiru.sesoc.vo.Top" alias="Top" />
+		<typeAlias type="com.kiru.sesoc.vo.Outers" alias="Outers" />
+		<typeAlias type="com.kiru.sesoc.vo.Shoes" alias="Shoes" />
+		<typeAlias type="com.kiru.sesoc.vo.Selected" alias="Selected" />
+		<typeAlias type="com.kiru.sesoc.vo.Mylist" alias="Mylist" />
+		<typeAlias type="com.kiru.sesoc.vo.BoardVo" alias="BoardVo" />
+		<typeAlias type="com.kiru.sesoc.vo.CommentsVo" alias="CommentsVo" />
+		<typeAlias type="com.kiru.sesoc.vo.LiketoVo" alias="LiketoVo" />
+		<typeAlias type="com.kiru.sesoc.vo.MyListvNum" alias="MyListvNum" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/member.xml" />
+		<mapper resource="mapper/style.xml" />
+		<mapper resource="mapper/BoardMapper.xml" />
+	</mappers>
+</configuration>

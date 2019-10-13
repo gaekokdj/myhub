@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kiru.sesoc.dao.StyleMapper">
+	
+	<select id="selectGenre" resultType="Recommeddress">
+		select recommed_photo_name from usertable u 
+			join genre g on u.USER_BODY_TYPE = g.USER_BODY_TYPE 
+				join RECOMMEDDRESS r on g.GENRE_NAME = r.GENRE_NAME where user_id = #{user_id}
+	</select>
+	
+	<select id="bodyRead" resultType="Usertable">
+		select * from usertable where user_id = #{user_id}
+	</select>
+	
+	<select id="minimalStyle" resultType="Recommeddress">
+		select * from recommeddress where genre_name = 'minimal'
+	</select>
+	
+	<select id="streetStyle" resultType="Recommeddress">
+		select * from recommeddress where genre_name = 'street'
+	</select>
+	
+	<select id="classicStyle" resultType="Recommeddress">
+		select * from recommeddress where genre_name = 'classic'
+	</select>
+	
+	<select id="classicCasualStyle" resultType="Recommeddress">
+		select * from recommeddress where genre_name = 'classiccasual'
+	</select>
+	
+	<select id="amecajiStyle" resultType="Recommeddress">
+		select * from recommeddress where genre_name = 'amecaji'
+	</select>
+	
+	<select id="workwearStyle" resultType="Recommeddress">
+		select * from recommeddress where genre_name = 'workwear'
+	</select>
+	
+	<select id="minimalTopList" resultType="Top">
+		select * from top where GENRE_NAME = 'minimal' and TOP_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="minimalBottomList" resultType="Bottom">
+		select * from bottom where GENRE_NAME = 'minimal' and BOTTOM_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="minimalShoesList" resultType="Shoes">
+		select * from shoes where GENRE_NAME = 'minimal' and SHOES_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="minimalOuterList" resultType="Outers">
+		select * from outers where GENRE_NAME = 'minimal' and OUTER_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="viewOuter" resultType="Outers" parameterType="int">
+		select * from outers where outer_num = #{outer_num}
+	</select>
+	
+	<select id="viewInner" resultType="Top" parameterType="int">
+		select * from top where top_num = #{top_num}
+	</select>
+	
+	<select id="viewPants" resultType="Bottom" parameterType="int">
+		select * from bottom where bottom_num = #{bottom_num}
+	</select>
+	
+	<select id="viewShoes" resultType="Shoes" parameterType="int">
+		select * from shoes where shoes_num = #{shoes_num}
+	</select>
+	
+	<insert id="addMyList" parameterType="Selected">
+		insert into selected values(select_num.nextval, #{user_id}, #{top_num}, #{bottom_num}, #{outer_num}, #{shoes_num})
+	</insert>
+	
+	<select id="myList" resultType="Mylist">
+		select * from selected s 
+    		join outers o on s.OUTER_NUM = o.OUTER_NUM
+        		join top t on s.TOP_NUM = t.TOP_NUM 
+            		join bottom b on s.BOTTOM_NUM = b.BOTTOM_NUM
+                		join shoes sh on s.SHOES_NUM = sh.SHOES_NUM where user_id = #{user_id} order by select_num asc
+	</select>
+	
+	<delete id="styleDelete" parameterType="String">
+		delete from selected where select_num = #{select_num}
+	</delete>
+	
+	<select id="topBrandList" resultType="Top">
+		select * from top where brand_name = #{brand_name}
+	</select>
+	
+	<select id="bottomBrandList" resultType="Bottom">
+		select * from bottom where brand_name = #{brand_name}
+	</select>
+	
+	<select id="shoesBrandList" resultType="Shoes">
+		select * from shoes where brand_name = #{brand_name}
+	</select>
+	
+	<select id="outerBrandList" resultType="Outers">
+		select * from outers where brand_name = #{brand_name}
+	</select>
+	
+	
+	
+	<!-- =========== -->
+	<select id="readMyListNum" resultType="MyListvNum">
+		select * from selected where select_num = #{select_num}
+	</select>
+	
+	
+</mapper>

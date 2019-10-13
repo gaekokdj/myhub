@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.kiru.sesoc.dao.BoardMapper">
+  	<!-- 
+	<insert id="insertBoard" parameterType="BoardVo">
+	INSERT INTO 
+		BOARD
+	VALUES(
+		board_num.nextval
+  		,#{user_id}
+  		,#{board_name}
+  		,#{board_content}
+  		,sysdate
+  		,0
+  		,0
+  		,0
+  		,0
+  		,0
+  		,0
+  		,0
+	)
+	</insert> -->
+	
+	
+	<!--  -->
+	<insert id="insertBoard" parameterType="BoardVo">
+	INSERT INTO 
+		BOARD
+	VALUES(
+		board_num.nextval
+  		,#{user_id}
+  		,#{board_name}
+  		,#{board_content}
+  		,sysdate
+  		,0
+  		,0
+  		<choose>
+  			<when test="top_num != null">
+  			,#{top_num}
+  			,#{bottom_num}
+  			,#{outer_num}
+  			,#{shoes_num}
+  			</when>
+  			<otherwise>
+  			,0
+	  		,0
+	  		,0
+	  		,0
+  			</otherwise>
+  		</choose>
+  		,0
+	)
+	</insert>
+	
+	
+	<select id="selectAllBoard" resultType="BoardVo" parameterType="String">
+		Select * 
+		FROM BOARD
+			
+			
+		<if test="_parameter!=null">
+		WHERE
+			board_name LIKE '%'||#{searchWord}||'%'
+		</if>
+		
+		order by board_num desc
+	</select>
+	
+	<select id="selectBoard" resultType="BoardVo" parameterType="String">
+		Select * 
+		FROM BOARD
+		where
+			board_num=#{board_num}
+	
+	</select>
+	
+	<delete id="deleteBoard" parameterType="String">
+		DELETE FROM BOARD
+		WHERE 
+		board_num=#{board_num}
+	
+	</delete>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComments" parameterType="String">
+		DELETE FROM COMMENTS
+		WHERE 
+		board_num=#{board_num}
+	
+	</delete>
+	
+	
+	<update id="updateBoard" parameterType="BoardVo">
+	
+		UPDATE BOARD SET
+			board_name=#{board_name}
+			,board_content=#{board_content}
+		WHERE
+			board_num=#{board_num}
+	
+	</update>
+	
+	<select id="selectCount" resultType="int" parameterType="String">
+	
+		SELECT COUNT(board_num) FROM BOARD
+		
+		<if test="_parameter!=null">
+		WHERE
+			board_name LIKE '%'||#{searchWord}||'%'
+		</if>
+	
+	</select>
+	
+	<insert id="insertComments" parameterType="CommentsVo">
+		
+		INSERT INTO COMMENTS
+	VALUES(
+		comment_num.nextval
+  		,#{board_num}
+  		,#{user_id}
+  		,#{comments_content}
+  		,sysdate
+  		)
+  		
+	</insert>
+	
+	<select id="selectComments" parameterType="String" resultType="HashMap">
+		Select * 
+		FROM COMMENTS
+		WHERE
+			BOARD_NUM=#{board_num}
+		ORDER BY 
+			board_num desc
+
+
+	</select>
+	
+	<delete id="deleteOneComments" parameterType="String" >
+	
+		DELETE FROM COMMENTS
+		WHERE 
+		COMMENT_NUM=#{COMMENT_NUM}
+	
+	</delete>
+	
+	
+	<update id="board_hitCount" parameterType="int">
+		UPDATE
+			BOARD
+		SET
+			board_hit = board_hit + 1
+		WHERE
+			board_num=#{board_num}
+	</update>
+	
+
+	<update id="like_count_plus" parameterType="int">
+		UPDATE
+			BOARD
+		SET
+			like_count = like_count + 1
+		WHERE
+			board_num=#{board_num}
+	</update>
+	
+	<update id="like_count_minus" parameterType="int">
+		UPDATE
+			BOARD
+		SET
+			like_count = like_count - 1
+		WHERE
+			board_num=#{board_num}
+	</update>
+	
+	
+	
+	
+	<insert id="insert_like_check" parameterType="LiketoVo">
+    INSERT INTO liketo
+    
+    VALUES(
+		like_num.nextval
+  		,#{board_num}
+  		,#{user_id}  	
+  		,1
+  		)
+  
+  	</insert>
+  
+  	<delete id="delete_like_check" parameterType="LiketoVo">
+    DELETE FROM liketo
+		WHERE 
+		like_num=#{like_num}
+  	</delete>
+	
+	<select id="select_like_check" parameterType="LiketoVo" resultType="LiketoVo">
+		Select * 
+		FROM liketo
+		WHERE
+			board_num=#{board_num} and user_id=#{user_id}
+	</select>
+	
+	<select id="goboardList" resultType="Mylist" parameterType="String">
+		select * from selected s 
+    		join outers o on s.OUTER_NUM = o.OUTER_NUM
+        		join top t on s.TOP_NUM = t.TOP_NUM 
+            		join bottom b on s.BOTTOM_NUM = b.BOTTOM_NUM
+                		join shoes sh on s.SHOES_NUM = sh.SHOES_NUM where select_num = #{select_num}
+	</select>
+ </mapper>
