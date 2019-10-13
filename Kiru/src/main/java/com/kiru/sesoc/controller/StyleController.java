@@ -30,6 +30,11 @@ public class StyleController {
 	@Autowired
 	private StyleService service;
 	
+	@RequestMapping(value = "/bodychkForm", method = RequestMethod.GET)
+	public String bodychkForm() {
+		return "/styling/bodychkForm";
+	}
+	
 	@RequestMapping(value = "/selectGenre", method = RequestMethod.GET)
 	public String selectGenre(Usertable vo, HttpSession session, Model model) {
 		ArrayList<Recommeddress> list = service.selectGenre(vo, session);

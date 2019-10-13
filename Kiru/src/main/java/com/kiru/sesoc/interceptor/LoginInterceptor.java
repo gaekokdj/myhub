@@ -15,7 +15,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		 HttpSession session = request.getSession();
 		 
 		 if ( session.getAttribute("user_id") == null ) {
-			 response.sendRedirect("/sesoc/member/login");
+			 response.sendRedirect("/sesoc/member/loginForm");
 			 return false;
 		 }
 		

@@ -25,11 +25,6 @@ public class MemberController {
 		return "/member/signupForm";
 	}
 	
-	@RequestMapping(value = "/bodychkForm", method = RequestMethod.GET)
-	public String bodychkForm() {
-		return "/member/bodychkForm";
-	}
-	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(Usertable vo) {
 		boolean result = service.signup(vo);

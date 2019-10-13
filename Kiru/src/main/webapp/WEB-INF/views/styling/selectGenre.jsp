@@ -225,7 +225,7 @@
 		</c:if>
 						<c:if test="${user.user_body_type eq 'V'}">
 						<div class="col-lg-3 text-medium m-3" >
-							<input type='radio' name='fit_fashion' value='classic'
+							<input type='radio' class="l" name='fit_fashion' value='classic'
 								onclick='selectDel(this)'>클래식
 						</div>
 		</c:if>
@@ -286,20 +286,45 @@
 							</div>
 						</c:if>
 						<c:if test="${user.user_body_type eq 'O'}">
-							<input type='radio' name='chubby_fashion' value='workwear'
-								onclick='selectDel(this)'>워크웨어<br>
+							<div class="col-lg-3 text-medium m-3" >
+							<input type='radio' class="l" name='chubby_fashion' value='workwear'
+								onclick='selectDel(this)'>워크웨어
+							</div>
+								<br>
 							<br>
-							<a href="/sesoc">돌아가기</a>
-							<a href='javascript:chubby_styling()'>선택</a>
+							<div id="selectForm">
+								<div class="col-lg-6" >
+									<div class="row" >
+										<div class="col-lg-3" >
+											<a class="btn btn-light" href="/sesoc">돌아가기</a>
+										</div>
+										<div class="col-lg-2" >
+											<a class="btn btn-light" href='javascript:chubby_styling()'>선택</a>
+										</div>
+									</div>
+								</div>
+							</div>
 						</c:if>
 						<c:if test="${user.user_body_type eq 'V'}">
-							<input type='radio' name='fit_fashion' value='classiccasual'
-								onclick='selectDel(this)'>클래식캐주얼<br>
+							<div class="col-lg-3 text-medium m-3" >
+							<input type='radio' class="l" name='fit_fashion' value='classiccasual'
+								onclick='selectDel(this)'>클래식캐주얼
+							</div>
+								<br>
 							<br>
-							<a href="/sesoc">돌아가기</a>
-							<a href='javascript:fit_styling()'>선택</a>
+							<div id="selectForm">
+								<div class="col-lg-6" >
+									<div class="row" >
+										<div class="col-lg-3" >
+											<a class="btn btn-light" href="/sesoc">돌아가기</a>
+										</div>
+										<div class="col-lg-2" >
+											<a class="btn btn-light" href='javascript:fit_styling()'>선택</a>
+										</div>
+									</div>
+								</div>
+							</div>
 						</c:if>
-
 
 						<form name="go">
 							<table id="bodycheck">
