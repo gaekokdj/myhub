@@ -5,12 +5,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="INSPIRO">
+    <meta name="description" content="Themeforest Template Polo">
+    <!-- Document title -->
+    <!-- Stylesheets & Fonts -->
+    <link href="/sesoc/resources/css/plugins.css" rel="stylesheet">
+    <link href="/sesoc/resources/css/style.css" rel="stylesheet">
+    <link href="/sesoc/resources/css/responsive.css" rel="stylesheet">
+    <link href="/sesoc/resources/css/css.css" rel="stylesheet"/>
+<style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
 <meta charset="UTF-8">
 <title>스트릿 스타일링</title>
-<link rel="stylesheet" type="text/css" href="/sesoc/resources/css/css.css" />
+<style>
+	div.marg div {
+		margin: auto;
+	}
+	
+	#complete div.col-lg-6 {
+		margin: 0px auto;
+		padding: 5px;
+	}
+	#complete div.col-lg-3, #complete div.col-lg-2 {
+		margin: auto;
+	}
+	#complete a {
+		font-size: large;
+	}
+	
+</style>
+
 <script src="/sesoc/resources/js/jquery-3.4.1.js"></script>
 <script>
-	var brand_name;
+	var top_brand_name;
+	var bottom_brand_name;
+	var shoes_brand_name;
+	var outer_brand_name;
 		
 	var top_num;
 	var bottom_num;
@@ -90,35 +121,31 @@
 	}
 
 	function selectTopBrand(temp) {
-		brand_name = temp.value;
+		top_brand_name = temp.value;
 		
 		$("#topBrand").empty();
-		$("#topBrand").append("<td>" + "<a href='javascript:brandInner()'>" + 
-							"<input type='hidden' name='brand_name' value='" + brand_name + "'>" + brand_name + "</a>" + "</td>");
+		$("#topBrand").append("<a href='javascript:brandInner()'>" + "<input type='hidden' name='brand_name' value='" + top_brand_name + "'>" + top_brand_name + "</a>");
 	}
 	
 	function selectBottomBrand(temp) {
-		brand_name = temp.value;
+		bottom_brand_name = temp.value;
 		
 		$("#bottomBrand").empty();
-		$("#bottomBrand").append("<td>" + "<a href='javascript:brandBottom()'>" + 
-							"<input type='hidden' name='brand_name' value='" + brand_name + "'>" + brand_name + "</a>" + "</td>");
+		$("#bottomBrand").append("<a href='javascript:brandBottom()'>" + "<input type='hidden' name='brand_name' value='" + bottom_brand_name + "'>" + bottom_brand_name + "</a>");
 	}
 	
 	function selectShoesBrand(temp) {
-		brand_name = temp.value;
+		shoes_brand_name = temp.value;
 		
 		$("#shoesBrand").empty();
-		$("#shoesBrand").append("<td>" + "<a href='javascript:brandShoes()'>" + 
-							"<input type='hidden' name='brand_name' value='" + brand_name + "'>" + brand_name + "</a>" + "</td>");
+		$("#shoesBrand").append("<a href='javascript:brandShoes()'>" + "<input type='hidden' name='brand_name' value='" + shoes_brand_name + "'>" + shoes_brand_name + "</a>");
 	}
 	
 	function selectOuterBrand(temp) {
-		brand_name = temp.value;
+		outer_brand_name = temp.value;
 		
 		$("#outerBrand").empty();
-		$("#outerBrand").append("<td>" + "<a href='javascript:brandOuter()'>" + 
-							"<input type='hidden' name='brand_name' value='" + brand_name + "'>" + brand_name + "</a>" + "</td>");
+		$("#outerBrand").append("<a href='javascript:brandOuter()'>" + "<input type='hidden' name='brand_name' value='" + outer_brand_name + "'>" + outer_brand_name + "</a>");
 	}
 	
 	function brandInner(){
@@ -126,15 +153,23 @@
 			url:"streetTopBrandList",
 			type:"GET",
 			dataType:"json",
-			data:{"brand_name":brand_name},
+			data:{"brand_name":top_brand_name},
 			success: function(result) {
-				$("#showTopBrand").empty();
+				var temp = 0.0;
 				$("#topBrand").empty();
-				$("#topBrand").append("<td>" + "<a href='javascript:backTopBrand()'>" + "뒤로" + "</a>" + "&nbsp" + "&nbsp" + brand_name + "</td>");
+				$("#topBrand").append("<a href='javascript:backBrandList(\"상의\");'>뒤로</a>&nbsp&nbsp" + top_brand_name);
+				
+				$("#top-owl-stage-div").empty();
 				$(result).each(function(index,item) {
-					$("#showTopBrand").append("<label><input type='radio' name='top_radio' value='" + item.top_num + "' onclick='selectTop(this)'>" +
-											"<img src=" + item.top_photo_name + " width='170' height='240' >" + "</label>");
-				})
+					temp += 250.2;
+					$("#top-owl-stage-div").append("<div class='owl-item' style='width: 250.2px;'>" +
+							"<label><input type='radio' name='top_radio' value='" + item.top_num + "' onclick='selectTop(this)'>" +
+									"<img src=" + item.top_photo_name + " >" + "</label>" + 
+									"</div>");
+				});
+				$("#top-owl-stage-div").css("width",temp);
+				$("#top-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+				$("#top-owl-stage-div").css("transition","all 0s ease 0s");
 			},
 			error: function() {
 				alert("error");
@@ -147,36 +182,52 @@
 			url:"streetBottomBrandList",
 			type:"GET",
 			dataType:"json",
-			data:{"brand_name":brand_name},
+			data:{"brand_name":bottom_brand_name},
 			success: function(result) {
-				$("#showBottomBrand").empty();
+				var temp = 0.0;
 				$("#bottomBrand").empty();
-				$("#bottomBrand").append("<td>" + "<a href='javascript:backBottomBrand()'>" + "뒤로" + "</a>" + "&nbsp" + "&nbsp" + brand_name + "</td>");
+				$("#bottomBrand").append("<a href='javascript:backBrandList(\"하의\");'>뒤로</a>&nbsp&nbsp" + bottom_brand_name);
+				
+				$("#bottom-owl-stage-div").empty();
 				$(result).each(function(index,item) {
-					$("#showBottomBrand").append("<label><input type='radio' name='bottom_radio' value='" + item.bottom_num + "' onclick='selectBottom(this)'>" +
-											"<img src=" + item.bottom_photo_name + " width='170' height='240' >" + "</label>");
-				})
+					temp += 250.2;
+					$("#bottom-owl-stage-div").append("<div class='owl-item' style='width: 250.2px;'>" +
+							"<label><input type='radio' name='bottom_radio' value='" + item.bottom_num + "' onclick='selectBottom(this)'>" +
+										"<img src=" + item.bottom_photo_name + " >" + "</label>" + 
+										"</div>");
+				});
+				$("#bottom-owl-stage-div").css("width",temp);
+				$("#bottom-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+				$("#bottom-owl-stage-div").css("transition","all 0s ease 0s");
 			},
 			error: function() {
 				alert("error");
 			}
 		})
-	}
+	} 
 	
 	function brandShoes(){
 		$.ajax({
 			url:"streetShoesBrandList",
 			type:"GET",
 			dataType:"json",
-			data:{"brand_name":brand_name},
+			data:{"brand_name":shoes_brand_name},
 			success: function(result) {
-				$("#showShoesBrand").empty();
+				var temp = 0.0;
 				$("#shoesBrand").empty();
-				$("#shoesBrand").append("<td>" + "<a href='javascript:backShoesBrand()'>" + "뒤로" + "</a>" + "&nbsp" + "&nbsp" + brand_name + "</td>");
-				$(result).each(function(index,item) {
-					$("#showShoesBrand").append("<label><input type='radio' name='shoes_radio' value='" + item.shoes_num + "' onclick='selectShoes(this)'>" +
-											"<img src=" + item.shoes_photo_name + " width='170' height='240' >" + "</label>");
-				})
+				$("#shoesBrand").append("<a href='javascript:backBrandList(\"신발\");'>뒤로</a>&nbsp&nbsp" + shoes_brand_name);
+				
+				$("#shoes-owl-stage-div").empty();
+				$(result).each(function(index,item){
+					temp += 250.2;
+					$("#shoes-owl-stage-div").append("<div class='owl-item' style='width: 250.2px;'>" + 
+							"<label><input type='radio' name='shoes_radio' value='" + item.shoes_num + "' onclick='selectShoes(this)'>" +
+											"<img src=" + item.shoes_photo_name + " >" + "</label>" +
+											"</div>");
+				});
+				$("#shoes-owl-stage-div").css("width",temp);
+				$("#shoes-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+				$("#shoes-owl-stage-div").css("transition","all 0s ease 0s");
 			},
 			error: function() {
 				alert("error");
@@ -189,15 +240,23 @@
 			url:"streetOuterBrandList",
 			type:"GET",
 			dataType:"json",
-			data:{"brand_name":brand_name},
+			data:{"brand_name":outer_brand_name},
 			success: function(result) {
-				$("#showOuterBrand").empty();
+				var temp = 0.0;
 				$("#outerBrand").empty();
-				$("#outerBrand").append("<td>" + "<a href='javascript:backOuterBrand()'>" + "뒤로" + "</a>" + "&nbsp" + "&nbsp" + brand_name + "</td>");
+				$("#outerBrand").append("<a href='javascript:backBrandList(\"겉옷\");'>뒤로</a>&nbsp&nbsp" + outer_brand_name);
+				
+				$("#outer-owl-stage-div").empty();
 				$(result).each(function(index,item) {
-					$("#showOuterBrand").append("<label><input type='radio' name='outer_radio' value='" + item.outer_num + "' onclick='selectOuter(this)'>" +
-											"<img src=" + item.outer_photo_name + " width='170' height='240' >" + "</label>");
-				})
+					temp += 250.2;
+					$("#outer-owl-stage-div").append("<div class='owl-item' style='width: 250.2px;'>" + 
+							"<label><input type='radio' name='outer_radio' value='" + item.outer_num + "' onclick='selectOuter(this)'>" +
+											"<img src=" + item.outer_photo_name + "  >" + "</label>" +
+											"</div>");
+				});
+				$("#outer-owl-stage-div").css("width",temp);
+				$("#outer-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+				$("#outer-owl-stage-div").css("transition","all 0s ease 0s");
 			},
 			error: function() {
 				alert("error");
@@ -207,432 +266,426 @@
 	
 	function backTopBrand(){
 		$("#top").empty();
-		$("#top").append("<form name='go'>" + "<table><tr><td>" + "<table><tr><td>" + "<h3>상의</h3>" + "</td></tr>" + 
-						"<tr id='topBrand'>" + "</tr>" + "<tr><td id='showTopBrand'>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='갭' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/gap/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='구찌' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/gucci/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='낫포너드' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/not4nerd/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='닐바렛' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/neilbarrett/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='랑데부' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/rendezvouz/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='마르셀로불론' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/marceloburlon/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='마틴로즈' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/martinrose/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='매스노운' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/massnoun/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='뮌' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/munn/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='발렌시아가' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/balenciaga/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='베트멍' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/vetements/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='슈프림' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/supreme/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='스톤아일랜드' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/stoneisland/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='스티그마' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/stigma/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='쓰래셔' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/thrasher/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='씨피컴퍼니' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/cpcompany/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='아미리' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/amiri/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='엘엠씨' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/lmc/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='오베이' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/obey/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='오에이엠씨' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/oamc/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='오프화이트' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/offwhite/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='챔피언' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/champion/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='킬리자로' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/kilijaro/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetTop_radio' value='팔칠엠엠서울' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/87mm/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"</td></tr></table>" + "</td></tr></table></form>");
+		$("#top").append("<h3>상의</h3>" +
+						"<div id='topBrand'>" + "</div>" + "<div id='showTopBrand'>" + 
+						"<c:forEach items='${topList}' var='list'>" + 
+						"<label>" + "<input type='radio' name='streetTop_radio' value='${list.brand_name}' onclick='selectTopBrand(this)'>" + 
+						"<img src='${list.top_photo_name}' width='170' height='240'>" + "</label>" + "</c:forEach>" + 
+						"</div>");
 	}
 	
 	function backBottomBrand(){
 		$("#bottom").empty();
-		$("#bottom").append("<form name='to'>" + "<table><tr><td>" + "<table><tr><td>" + "<h3>하의</h3>" + "</td></tr>" + 
-						"<tr id='bottomBrand'>" + "</tr>" + "<tr><td id='showBottomBrand'>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='구찌' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/gucci/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='낫포너드' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/not4nerd/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='닐바렛' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/neilbarrett/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='랑데부' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/rendezvouz/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='마르셀로불론' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/marceloburlon/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='마틴로즈' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/martinrose/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='매스노운' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/massnoun/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='발렌시아가' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/balenciaga/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='스톤아일랜드' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/stoneisland/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='스티그마' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/stigma/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='씨피컴퍼니' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/cpcompany/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='아미리' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/amiri/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='엘엠씨' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/lmc/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='오베이' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/obey/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='오에이엠씨' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/oamc/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='오프화이트' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/offwhite/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='챔피언' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/champion/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='킬리자로' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/kilijaro/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetBottom_radio' value='팔칠엠엠서울' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/87mm/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"</td></tr></table>" + "</td></tr></table></form>");
+		$("#bottom").append("<h3>하의</h3>" +
+						"<div id='bottomBrand'>" + "</div>" + "<div id='showBottomBrand'>" + 
+						"<c:forEach items='${bottomList}' var='list'>" + 
+						"<label>" + "<input type='radio' name='streetBottom_radio' value='${list.brand_name}' onclick='selectBottomBrand(this)'>" + 
+						"<img src='${list.bottom_photo_name}' width='170' height='240'>" + "</label>" + "</c:forEach>" + 
+						"</div>");
 	}
 	
 	function backShoesBrand(){
 		$("#shoes").empty();
-		$("#shoes").append("<form name='the'>" + "<table><tr><td>" + "<table><tr><td>" + "<h3>신발</h3>" + "</td></tr>" + 
-						"<tr id='shoesBrand'>" + "</tr>" + "<tr><td id='showShoesBrand'>" + 
-						"<label>" + "<input type='radio' name='streetShoes_radio' value='골든구스' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/goldengoose/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetShoes_radio' value='구찌' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/gucci/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetShoes_radio' value='나이키' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/nike/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetShoes_radio' value='반스' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/vans/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetShoes_radio' value='발렌시아가' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/balenciaga/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetShoes_radio' value='발렌티노' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/valentino/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetShoes_radio' value='베트멍' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/vetements/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetShoes_radio' value='와이쓰리' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/y3/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"</td></tr></table>" + "</td></tr></table></form>");
+		$("#shoes").append("<h3>신발</h3>" +
+						"<div id='shoesBrand'>" + "</div>" + "<div id='showShoesBrand'>" + 
+						"<c:forEach items='${shoesList}' var='list'>" + 
+						"<label>" + "<input type='radio' name='streetShoes_radio' value='${list.brand_name}' onclick='selectShoesBrand(this)'>" + 
+						"<img src='${list.shoes_photo_name}' width='170' height='240'>" + "</label>" + "</c:forEach>" + 
+						"</div>");
 	}
 	
-	function backOuterBrand(){
-		$("#outer").empty();
-		$("#outer").append("<form name='home'>" + "<table><tr><td>" + "<table><tr><td>" + "<h3>겉옷</h3>" + "</td></tr>" + 
-						"<tr id='outerBrand'>" + "</tr>" + "<tr><td id='showOuterBrand'>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='구찌' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/gucci/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='낫포너드' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/not4nerd/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='닐바렛' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/neilbarrett/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='마르셀로불론' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/marceloburlon/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='마틴로즈' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/martinrose/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='매스노운' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/massnoun/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='뮌' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/munn/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='발렌시아가' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/balenciaga/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='베트멍' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/vetements/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='슈프림' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/supreme/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='스톤아일랜드' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/stoneisland/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='스티그마' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/stigma/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='씨피컴퍼니' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/cpcompany/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='아미리' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/amiri/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='알파인더스트리' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/alphaindustries/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='엘엠씨' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/lmc/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='오베이' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/obey/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='오에이엠씨' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/oamc/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='오프화이트' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/offwhite/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='챔피언' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/champion/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='킬리자로' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/kilijaro/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='streetOuter_radio' value='팔칠엠엠서울' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/87mm/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"</td></tr></table>" + "</td></tr></table></form>");
+	function backBrandList( parts ){
+		
+		switch ( parts ) {
+		case "상의" :
+			$("#topBrand").empty();
+			$("#top-owl-stage-div").empty();
+			$("#top-owl-stage-div").append(
+				"<c:forEach items='${topList}' var='list'>" + 
+					"<div class='owl-item' style='width: 250.2px;'>" + 
+					"<label><input type='radio' name='streetTop_radio' value='${list.brand_name}' onclick='selectTopBrand(this)'> <img src='${list.top_photo_name}'></label>" + 
+					"</div>" +
+				"</c:forEach>"
+			);
+			$("#top-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+			$("#top-owl-stage-div").css("transition","all 0s ease 0s");
+			$("#top-owl-stage-div").css("width","6260");
+			break;
+		
+		case "하의" :
+			$("#bottomBrand").empty();
+			$("#bottom-owl-stage-div").empty();
+			$("#bottom-owl-stage-div").append(
+				"<c:forEach items='${bottomList}' var='list'>" + 
+					"<div class='owl-item' style='width: 250.2px;'>" + 
+					"<label><input type='radio' name='streetBottom_radio' value='${list.brand_name}' onclick='selectBottomBrand(this)'> <img src='${list.bottom_photo_name}'></label>" + 
+					"</div>" +
+				"</c:forEach>"
+			);
+			$("#bottom-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+			$("#bottom-owl-stage-div").css("transition","all 0s ease 0s");
+			$("#bottom-owl-stage-div").css("width","6010");
+			break;
+		
+		case "신발" :
+			$("#shoesBrand").empty();
+			$("#shoes-owl-stage-div").empty();
+			$("#shoes-owl-stage-div").append(
+				"<c:forEach items='${shoesList}' var='list'>" + 
+					"<div class='owl-item' style='width: 250.2px;'>" + 
+					"<label><input type='radio' name='streetShoes_radio' value='${list.brand_name}' onclick='selectShoesBrand(this)'> <img src='${list.shoes_photo_name}'></label>" + 
+					"</div>" +
+				"</c:forEach>"
+			);
+			$("#shoes-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+			$("#shoes-owl-stage-div").css("transition","all 0s ease 0s");
+			$("#shoes-owl-stage-div").css("width","3758");
+			break;
+		
+		case "겉옷" :
+			var temp = 0.0;
+			$("#outerBrand").empty();
+			$("#outer-owl-stage-div").empty();
+			$("#outer-owl-stage-div").append(
+				"<c:forEach items='${outerList}' var='list'>" +
+					"<div class='owl-item' style='width: 250.2px;'>" +
+					"<label><input type='radio' name='streetOuter_radio' value='${list.brand_name}' onclick='selectOuterBrand(this)'> <img src='${list.outer_photo_name}'></label>" +
+					"</div>" +
+				"</c:forEach>"
+			);
+			$("#outer-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+			$("#outer-owl-stage-div").css("transition","all 0s ease 0s");
+			$("#outer-owl-stage-div").css("width", "6010" );
+			break;
+		};
 	}
 </script>
 </head>
-<body>
-	<div id="street">
-		<h1>스트릿</h1>
-		<table>
-			<c:forEach items="${streetList}" var="recommed">
-				<th id="fashion1">
-					<img src="${recommed.recommed_photo_name}" width='200' height='200'>
-				</th>
-			</c:forEach>
-		</table>
-	</div>
-	
-	<div id="top">	
-		<form name="go">
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td><h3>상의</h3></td>
-						</tr>
-						<tr id="topBrand">
-						
-						</tr>
-						<tr>
-								<td id="showTopBrand">
-									<label><input type='radio' name='streetTop_radio' value='갭' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/gap/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='구찌' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/gucci/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='낫포너드' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/not4nerd/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='닐바렛' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/neilbarrett/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='랑데부' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/rendezvouz/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='마르셀로불론' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/marceloburlon/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='마틴로즈' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/martinrose/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='매스노운' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/massnoun/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='뮌' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/munn/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='발렌시아가' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/balenciaga/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='베트멍' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/vetements/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='슈프림' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/supreme/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='스톤아일랜드' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/stoneisland/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='스티그마' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/stigma/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='쓰래셔' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/thrasher/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='씨피컴퍼니' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/cpcompany/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='아미리' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/amiri/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='엘엠씨' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/lmc/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='오베이' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/obey/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='오에이엠씨' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/oamc/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='오프화이트' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/offwhite/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='챔피언' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/champion/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='킬리자로' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/kilijaro/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetTop_radio' value='팔칠엠엠서울' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/87mm/inner/01.jpg" width='170' height='240'></label>
-								</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
-	
-	<div id="bottom">	
-		<form name="to">
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td><h3>하의</h3></td>
-						</tr>
-						<tr id="bottomBrand">
-						
-						</tr>
-						<tr>
-								<td id="showBottomBrand">
-									<label><input type='radio' name='streetBottom_radio' value='구찌' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/gucci/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='낫포너드' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/not4nerd/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='닐바렛' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/neilbarrett/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='랑데부' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/rendezvouz/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='마르셀로불론' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/marceloburlon/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='마틴로즈' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/martinrose/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='매스노운' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/massnoun/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='발렌시아가' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/balenciaga/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='스톤아일랜드' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/stoneisland/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='스티그마' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/stigma/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='씨피컴퍼니' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/cpcompany/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='아미리' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/amiri/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='엘엠씨' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/lmc/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='오베이' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/obey/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='오에이엠씨' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/oamc/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='오프화이트' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/offwhite/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='챔피언' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/champion/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='킬리자로' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/kilijaro/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetBottom_radio' value='팔칠엠엠서울' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/87mm/pants/01.jpg" width='170' height='240'></label>
-								</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
-	
-	<div id="shoes">	
-		<form name="the">
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td><h3>신발</h3></td>
-						</tr>
-						<tr id="shoesBrand">
-						
-						</tr>
-						<tr>
-								<td id="showShoesBrand">
-									<label><input type='radio' name='streetShoes_radio' value='골든구스' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/goldengoose/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetShoes_radio' value='구찌' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/gucci/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetShoes_radio' value='나이키' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/nike/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetShoes_radio' value='반스' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/vans/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetShoes_radio' value='발렌시아가' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/balenciaga/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetShoes_radio' value='발렌티노' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/valentino/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetShoes_radio' value='베트멍' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/vetements/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetShoes_radio' value='와이쓰리' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/y3/shoes/01.jpg" width='170' height='240'></label>
-								</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
-						
-	<div id="outer">	
-		<form name="home">
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td><h3>겉옷</h3></td>
-						</tr>
-						<tr id="outerBrand">
-						
-						</tr>
-						<tr>
-								<td id="showOuterBrand">
-									<label><input type='radio' name='streetOuter_radio' value='구찌' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/gucci/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='낫포너드' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/not4nerd/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='닐바렛' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/neilbarrett/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='마르셀로불론' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/marceloburlon/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='마틴로즈' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/martinrose/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='매스노운' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/massnoun/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='뮌' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/munn/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='발렌시아가' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/balenciaga/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='베트멍' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/vetements/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='슈프림' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/supreme/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='스톤아일랜드' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/stoneisland/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='스티그마' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/stigma/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='씨피컴퍼니' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/cpcompany/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='아미리' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/amiri/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='알파인더스트리' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/alphaindustries/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='엘엠씨' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/lmc/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='오베이' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/obey/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='오에이엠씨' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/oamc/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='오프화이트' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/offwhite/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='챔피언' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/champion/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='킬리자로' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/kilijaro/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='streetOuter_radio' value='팔칠엠엠서울' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/87mm/outer/01.jpg" width='170' height='240'></label>
-								</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
-	
-	<div id="complete">
-			<a href="/sesoc/styling/selectGenre">장르선택으로 돌아가기</a>
-			<a href="javascript:viewstreet()">코디 완료</a>
-	</div>
+<body class="breakpoint-xs">
+	<div class="body-inner">
+		
+		
+		<!-- HEADER -->
+        <header id="header" data-fullwidth="true" class="header-disable-fixed">
+			<div class="header-inner">
+				<div class="container">
+				
+					<div id="logo">
+						<a href="/sesoc/" class="logo" data-src-dark="/sesoc/resources/img/css/logo.png">
+							<img src="/sesoc/resources/img/css/logo.png" alt="Polo Logo">
+						</a>
+					</div>
+		
+					<div id="mainMenu-trigger">
+						<button class="lines-button x"> <span class="lines"></span> </button>
+					</div>
+		
+					<div id="mainMenu">
+						<div class="container">
+							<nav>
+								<ul>
+								
+									<li><a href="/sesoc/">메인화면</a></li>
+									<li class="dropdown"><a href="#">추천 의상</a>
+										<ul class="dropdown-menu" style="">
+											<li><a href="/sesoc/styling/bodychkForm">체형 입력</a></li>
+											<li><a href="/sesoc/styling/selectGenre">추천 의상 선택</a></li>
+										</ul>
+									</li>
+									<li><a href="/sesoc/board/boardList">게시판</a></li>
+									<li><a href="/sesoc/styling/myList">찜 의상</a></li>
+									
+									<li><a href="/sesoc/member/logout">로그아웃</a></li>
+									
+								</ul>
+							</nav>
+						</div>
+					</div>
+		
+				</div>
+			</div>
+		</header>
+        <!-- END: HEADER -->
+        
+        
+        <!-- Page title -->
+            <section id="page-title" class="dark" style="background-image:url(/sesoc/resources/images/pattern/pattern10.png)">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <ul>
+                            <li>KIRU</li>
+                        </ul>
+                    </div>
+                    <div class="page-title">
+                        <h1>스트릿 의상</h1>
+                        <span>원하는 의상을 선택하여 My List에 추가해 보세요!</span>
+                    </div>
+                </div>
+            </section>
+            <!-- end: Page title -->
+		
+		
+		<!-- SECTION -->
+		<section id="page-content">
+		<div class="row marg">
+ 		<div class="content col-lg-10">
+				<div id="street">
+					<div>
+					<div
+						class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+						data-items="5" data-dots="false">
+						<div class="owl-stage-outer">
+							<div class="owl-stage"
+								style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+									<c:forEach items="${streetList}" var="recommed">
+										<div class="owl-item"
+												style="width: 207.2px; margin-right: 20px;">
+												<label><img src="${recommed.recommed_photo_name}" width="170" height="240"></label>
+											</div>
+									</c:forEach>
+							</div>
+						</div>
+						<div class="owl-nav">
+							<button type="button" role="presentation" class="owl-prev">
+								<i class="icon-chevron-left1"></i>
+							</button>
+							<button type="button" role="presentation" class="owl-next">
+								<i class="icon-chevron-right1"></i>
+							</button>
+						</div>
+					</div>
+					</div>
+					<div class="owl-dots disabled"></div>
+				</div>
+				</div>
+
+				
+				<div class="content col-lg-10">
+					<div id="top">
+						<h3>상의</h3>
+						<div id="topBrand"></div>
+							<div id="showTopBrand">
+								<div class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+									data-items="5" data-dots="false">
+									<div class="owl-stage-outer">
+										<div class="owl-stage" id="top-owl-stage-div" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+											<c:forEach items="${topList}" var="list">
+												<div class="owl-item" style="width: 207.2px; margin-right: 20px;">
+													<label><input type='radio' name='streetTop_radio' value='${list.brand_name}' onclick='selectTopBrand(this)'>
+														<img src="${list.top_photo_name}" ></label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									<div class="owl-nav">
+										<button type="button" role="presentation" class="owl-prev">
+											<i class="icon-chevron-left1"></i>
+										</button>
+										<button type="button" role="presentation" class="owl-next">
+											<i class="icon-chevron-right1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="owl-dots disabled"></div>
+						</div>
+					</div>
+
+					<div class="content col-lg-10">
+						<div id="bottom">
+							<h3>하의</h3>
+							<div id="bottomBrand"></div>
+							<div id="showBottomBrand">
+								<div class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+									data-items="5" data-dots="false">
+									<div class="owl-stage-outer">
+										<div class="owl-stage" id="bottom-owl-stage-div" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+											<c:forEach items="${bottomList}" var="list">
+												<div class="owl-item" style="width: 207.2px; margin-right: 20px;">
+													<label><input type='radio' name='streetBottom_radio' value='${list.brand_name}' onclick='selectBottomBrand(this)'>
+														<img src="${list.bottom_photo_name}"></label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									<div class="owl-nav">
+										<button type="button" role="presentation" class="owl-prev">
+											<i class="icon-chevron-left1"></i>
+										</button>
+										<button type="button" role="presentation" class="owl-next">
+											<i class="icon-chevron-right1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="owl-dots disabled"></div>
+						</div>
+					</div>
+
+					<div class="content col-lg-10">
+						<div id="shoes">
+							<h3>신발</h3>
+							<div id="shoesBrand"></div>
+							<div id="showShoesBrand">
+								<div class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+									data-items="5" data-dots="false">
+									<div class="owl-stage-outer">
+										<div class="owl-stage" id="shoes-owl-stage-div" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+											<c:forEach items="${shoesList}" var="list">
+												<div class="owl-item" style="width: 207.2px; margin-right: 20px;">
+													<label><input type='radio' name='streetShoes_radio' value='${list.brand_name}' onclick='selectShoesBrand(this)'>
+														<img src="${list.shoes_photo_name}"></label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									<div class="owl-nav">
+										<button type="button" role="presentation" class="owl-prev">
+											<i class="icon-chevron-left1"></i>
+										</button>
+										<button type="button" role="presentation" class="owl-next">
+											<i class="icon-chevron-right1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="owl-dots disabled"></div>
+						</div>
+					</div>
+
+					<div class="content col-lg-10">
+						<div id="outer">
+							<h3>겉옷</h3>
+							<div id="outerBrand"></div>
+							<div id="showOuterBrand">
+								<div class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+									data-items="5" data-dots="false">
+									<div class="owl-stage-outer">
+										<div class="owl-stage" id="outer-owl-stage-div" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+											<c:forEach items="${outerList}" var="list">
+												<div class="owl-item" style="width: 207.2px; margin-right: 20px;">
+													<label><input type='radio' name='streetOuter_radio' value="${list.brand_name}" onclick='selectOuterBrand(this)'>
+													<img src="${list.outer_photo_name}"></label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									<div class="owl-nav">
+										<button type="button" role="presentation" class="owl-prev">
+											<i class="icon-chevron-left1"></i>
+										</button>
+										<button type="button" role="presentation" class="owl-next">
+											<i class="icon-chevron-right1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="owl-dots disabled"></div>
+						</div>
+					</div>
+					
+					
+				</div>
+				
+					<div id="complete">
+						<div class="col-lg-6" >
+							<div class="row" >
+								<div class="col-lg-3" >
+									<a class="btn btn-light" href="/sesoc/styling/selectGenre">장르선택으로 돌아가기</a>
+								</div>
+								<div class="col-lg-2" >
+									<a class="btn btn-light" href="javascript:viewstreet()">코디 완료</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<!-- SECTION:END -->
+			
+			
+			<!-- Footer -->
+		<footer id="footer">
+			<div class="footer-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+								<a href="#"><i class="far fa-clock"></i></a>
+								</div>
+								<h3>Working Days</h3>
+								<p><strong>Monday - Friday</strong>
+								<br>09:00 AM - 10:00 PM</p>
+								<p><strong>Saturday - Sunday</strong>
+								<br>10:00 AM - 06:00 PM</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+									<a href="#"><i class="fas fa-map-marker-alt"></i></a>
+								</div>
+								<h3>Caffe Location</h3>
+								<p><strong>Caffe Address:</strong>
+									<br> 795 Folsom Ave, Suite 600
+									<br> San Francisco, CA 94107
+									<br>
+									<br>
+								</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+								<a href="#"><i class="fa fa-phone"></i></a>
+								</div>
+								<h3>Caffe Contact</h3>
+									<p><strong>Phone:</strong>
+										<br> (123) 456-7890
+										<br> (987) 654-3210
+										<br>
+									</p>
+							</div>
+						</div>
+					</div>
+      			</div>
+    		</div>
+		    <div class="copyright-content">
+		      <div class="container">
+         
+		         <div class="row">
+		            <div class="col-lg-6">
+		              <!-- Social icons -->
+		              <div class="social-icons social-icons-colored float-left">
+		                <ul>
+		                    <li class="social-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
+		                  <li class="social-facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+		                  <li class="social-twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+		                  <li class="social-vimeo"><a href="#"><i class="fab fa-vimeo"></i></a></li>
+		                  <li class="social-youtube"><a href="#"><i class="fab fa-youtube"></i></a></li>
+		                  <li class="social-pinterest"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+		                  <li class="social-gplus"><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+		                </ul>
+		              </div>
+		              <!-- end: Social icons --> 
+		          </div>
+
+					<div class="col-lg-6">
+				<div class="copyright-text text-center">&copy; 2019 POLO -  Responsive Multi-Purpose HTML5 Template. All Rights Reserved.<a href="http://www.inspiro-media.com" target="_blank">INSPIRO</a> </div>
+			</div>
+		</div>
+      </div>
+    </div>
+  </footer>
+  <!-- end: Footer -->
+			
+			
+	<!--Plugins-->
+	<script src="/sesoc/resources/js/jquery.js"></script>
+	<script src="/sesoc/resources/js/plugins.js"></script>
+
+	<!--Template functions-->
+	<script src="/sesoc/resources/js/functions.js"></script>
 </body>
 </html>

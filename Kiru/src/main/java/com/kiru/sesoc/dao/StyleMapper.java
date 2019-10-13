@@ -61,4 +61,40 @@ public interface StyleMapper {
 	public ArrayList<Top> minimalTopList(Top top);
 
 	public MyListvNum readMyListNum(String select_num);
+
+	public ArrayList<Top> streetTopList(Top top);
+
+	public ArrayList<Bottom> streetBottomList(Bottom bottom);
+
+	public ArrayList<Shoes> streetShoesList(Shoes shoes);
+
+	public ArrayList<Outers> streetOuterList(Outers outer);
+
+	public ArrayList<Shoes> classicShoesList(Shoes shoes);
+
+	public ArrayList<Outers> classicOuterList(Outers outer);
+
+	public ArrayList<Top> classiccasualTopList(Top top);
+
+	public ArrayList<Bottom> classiccasualBottomList(Bottom bottom);
+
+	public ArrayList<Shoes> classiccasualShoesList(Shoes shoes);
+
+	public ArrayList<Outers> classiccasualOuterList(Outers outer);
+
+	public ArrayList<Top> amecajiTopList(Top top);
+
+	public ArrayList<Bottom> amecajiBottomList(Bottom bottom);
+
+	public ArrayList<Shoes> amecajiShoesList(Shoes shoes);
+
+	public ArrayList<Outers> amecajiOuterList(Outers outer);
+
+	public ArrayList<Top> workwearTopList(Top top);
+
+	public ArrayList<Bottom> workwearBottomList(Bottom bottom);
+
+	public ArrayList<Shoes> workwearShoesList(Shoes shoes);
+
+	public ArrayList<Outers> workwearOuterList(Outers outer);
 }

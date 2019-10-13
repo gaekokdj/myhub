@@ -142,5 +142,95 @@ public class StyleDAO {
 		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
 		return mapper.readMyListNum(select_num);
 	}
+
+	public ArrayList<Top> streetTopList(Top top) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.streetTopList(top);
+	}
+
+	public ArrayList<Bottom> streetBottomList(Bottom bottom) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.streetBottomList(bottom);
+	}
+
+	public ArrayList<Shoes> streetShoesList(Shoes shoes) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.streetShoesList(shoes);
+	}
+
+	public ArrayList<Outers> streetOuterList(Outers outer) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.streetOuterList(outer);
+	}
+
+	public ArrayList<Shoes> classicShoesList(Shoes shoes) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.classicShoesList(shoes);
+	}
+
+	public ArrayList<Outers> classicOuterList(Outers outer) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.classicOuterList(outer);
+	}
+
+	public ArrayList<Top> classiccasualTopList(Top top) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.classiccasualTopList(top);
+	}
+
+	public ArrayList<Bottom> classiccasualBottomList(Bottom bottom) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.classiccasualBottomList(bottom);
+	}
+
+	public ArrayList<Shoes> classiccasualShoesList(Shoes shoes) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.classiccasualShoesList(shoes);
+	}
+
+	public ArrayList<Outers> classiccasualOuterList(Outers outer) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.classiccasualOuterList(outer);
+	}
+
+	public ArrayList<Top> amecajiTopList(Top top) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.amecajiTopList(top);
+	}
+
+	public ArrayList<Bottom> amecajiBottomList(Bottom bottom) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.amecajiBottomList(bottom);
+	}
+
+	public ArrayList<Shoes> amecajiShoesList(Shoes shoes) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.amecajiShoesList(shoes);
+	}
+
+	public ArrayList<Outers> amecajiOuterList(Outers outer) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.amecajiOuterList(outer);
+	}
+
+	public ArrayList<Top> workwearTopList(Top top) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.workwearTopList(top);
+	}
+
+	public ArrayList<Bottom> workwearBottomList(Bottom bottom) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.workwearBottomList(bottom);
+	}
+
+	public ArrayList<Shoes> workwearShoesList(Shoes shoes) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.workwearShoesList(shoes);
+	}
+
+	public ArrayList<Outers> workwearOuterList(Outers outer) {
+		StyleMapper mapper = sqlSession.getMapper(StyleMapper.class);
+		return mapper.workwearOuterList(outer);
+	}
 	
 }

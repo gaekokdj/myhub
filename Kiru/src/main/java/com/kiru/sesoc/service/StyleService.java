@@ -109,22 +109,6 @@ public class StyleService {
 		return dao.outersBrandList(vo);
 	}
 
-	public ArrayList<Outers> minimalOuterList(Outers outer) {
-		return dao.minimalOuterList(outer);
-	}
-
-	public ArrayList<Shoes> minimalShoesList(Shoes shoes) {
-		return dao.minimalShoesList(shoes);
-	}
-
-	public ArrayList<Bottom> minimalBottomList(Bottom bottom) {
-		return dao.minimalBottomList(bottom);
-	}
-
-	public ArrayList<Top> minimalTopList(Top top) {
-		return dao.minimalTopList(top);
-	}
-
 	public MyListvNum readMyListNum(String select_num) {
 		return dao.readMyListNum(select_num);
 	}
@@ -141,5 +125,93 @@ public class StyleService {
 		mlist.setShoes_photo_name( dao.viewShoes( mnvo.getShoes_num() ).getShoes_photo_name() );
 		
 		return mlist;
+	}
+
+	public ArrayList<Top> minimalTopList(Top top) {
+		return dao.minimalTopList(top);
+	}
+	
+	public ArrayList<Bottom> minimalBottomList(Bottom bottom) {
+		return dao.minimalBottomList(bottom);
+	}
+	
+	public ArrayList<Shoes> minimalShoesList(Shoes shoes) {
+		return dao.minimalShoesList(shoes);
+	}
+	
+	public ArrayList<Outers> minimalOuterList(Outers outer) {
+		return dao.minimalOuterList(outer);
+	}
+
+	public ArrayList<Top> streetTopList(Top top) {
+		return dao.streetTopList(top);
+	}
+
+	public ArrayList<Bottom> streetBottomList(Bottom bottom) {
+		return dao.streetBottomList(bottom);
+	}
+
+	public ArrayList<Shoes> streetShoesList(Shoes shoes) {
+		return dao.streetShoesList(shoes);
+	}
+
+	public ArrayList<Outers> streetOuterList(Outers outer) {
+		return dao.streetOuterList(outer);
+	}
+
+	public ArrayList<Shoes> classicShoesList(Shoes shoes) {
+		return dao.classicShoesList(shoes);
+	}
+
+	public ArrayList<Outers> classicOuterList(Outers outer) {
+		return dao.classicOuterList(outer);
+	}
+
+	public ArrayList<Top> classiccasualTopList(Top top) {
+		return dao.classiccasualTopList(top);
+	}
+
+	public ArrayList<Bottom> classiccasualBottomList(Bottom bottom) {
+		return dao.classiccasualBottomList(bottom);
+	}
+
+	public ArrayList<Shoes> classiccasualShoesList(Shoes shoes) {
+		return dao.classiccasualShoesList(shoes);
+	}
+
+	public ArrayList<Outers> classiccasualOuterList(Outers outer) {
+		return dao.classiccasualOuterList(outer);
+	}
+
+	public ArrayList<Top> amecajiTopList(Top top) {
+		return dao.amecajiTopList(top);
+	}
+
+	public ArrayList<Bottom> amecajiBottomList(Bottom bottom) {
+		return dao.amecajiBottomList(bottom);
+	}
+
+	public ArrayList<Shoes> amecajiShoesList(Shoes shoes) {
+		return dao.amecajiShoesList(shoes);
+	}
+
+	public ArrayList<Outers> amecajiOuterList(Outers outer) {
+		return dao.amecajiOuterList(outer);
+	}
+
+	public ArrayList<Top> workwearTopList(Top top) {
+		return dao.workwearTopList(top);
+	}
+
+	public ArrayList<Bottom> workwearBottomList(Bottom bottom) {
+		return dao.workwearBottomList(bottom);
+	}
+
+	public ArrayList<Shoes> workwearShoesList(Shoes shoes) {
+		return dao.workwearShoesList(shoes);
+	}
+
+	public ArrayList<Outers> workwearOuterList(Outers outer) {
+		return dao.workwearOuterList(outer);
 	}
 }

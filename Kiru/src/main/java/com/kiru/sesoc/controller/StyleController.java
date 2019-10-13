@@ -60,37 +60,73 @@ public class StyleController {
 	}
 	
 	@RequestMapping(value = "/streetBrand", method = RequestMethod.POST)
-	public String streetBrand(Recommeddress vo, Model model) {
+	public String streetBrand(Recommeddress vo, Model model, Top top, Bottom bottom, Shoes shoes, Outers outer) {
 		ArrayList<Recommeddress> list = service.streetStyle(vo);
+		ArrayList<Top> topList = service.streetTopList(top);
+		ArrayList<Bottom> bottomList = service.streetBottomList(bottom);
+		ArrayList<Shoes> shoesList = service.streetShoesList(shoes);
+		ArrayList<Outers> outerList = service.streetOuterList(outer);
 		model.addAttribute("streetList", list);
+		model.addAttribute("topList", topList);
+		model.addAttribute("bottomList", bottomList);
+		model.addAttribute("shoesList", shoesList);
+		model.addAttribute("outerList", outerList);
 		return "/styling/streetStyle";
 	}
 	
 	@RequestMapping(value = "/classicBrand", method = RequestMethod.POST)
-	public String classicBrand(Recommeddress vo, Model model) {
+	public String classicBrand(Recommeddress vo, Model model, Shoes shoes, Outers outer) {
 		ArrayList<Recommeddress> list = service.classicStyle(vo);
+		ArrayList<Shoes> shoesList = service.classicShoesList(shoes);
+		ArrayList<Outers> outerList = service.classicOuterList(outer);
 		model.addAttribute("classicList", list);
+		model.addAttribute("shoesList", shoesList);
+		model.addAttribute("outerList", outerList);
 		return "/styling/classicStyle";
 	}
 	
 	@RequestMapping(value = "/classicCasualBrand", method = RequestMethod.POST)
-	public String classicCasualBrand(Recommeddress vo, Model model) {
+	public String classicCasualBrand(Recommeddress vo, Model model, Top top, Bottom bottom, Shoes shoes, Outers outer) {
 		ArrayList<Recommeddress> list = service.classicCasualStyle(vo);
-		model.addAttribute("classicCasulList", list);
+		ArrayList<Top> topList = service.classiccasualTopList(top);
+		ArrayList<Bottom> bottomList = service.classiccasualBottomList(bottom);
+		ArrayList<Shoes> shoesList = service.classiccasualShoesList(shoes);
+		ArrayList<Outers> outerList = service.classiccasualOuterList(outer);
+		model.addAttribute("classiccasualList", list);
+		model.addAttribute("topList", topList);
+		model.addAttribute("bottomList", bottomList);
+		model.addAttribute("shoesList", shoesList);
+		model.addAttribute("outerList", outerList);
 		return "/styling/classicCasualStyle";
 	}
 	
 	@RequestMapping(value = "/amecajiBrand", method = RequestMethod.POST)
-	public String amecajiBrand(Recommeddress vo, Model model) {
+	public String amecajiBrand(Recommeddress vo, Model model, Top top, Bottom bottom, Shoes shoes, Outers outer) {
 		ArrayList<Recommeddress> list = service.amecajiStyle(vo);
+		ArrayList<Top> topList = service.amecajiTopList(top);
+		ArrayList<Bottom> bottomList = service.amecajiBottomList(bottom);
+		ArrayList<Shoes> shoesList = service.amecajiShoesList(shoes);
+		ArrayList<Outers> outerList = service.amecajiOuterList(outer);
 		model.addAttribute("amecajiList", list);
+		model.addAttribute("topList", topList);
+		model.addAttribute("bottomList", bottomList);
+		model.addAttribute("shoesList", shoesList);
+		model.addAttribute("outerList", outerList);
 		return "/styling/amecajiStyle";
 	}
 	
 	@RequestMapping(value = "/workwearBrand", method = RequestMethod.POST)
-	public String workwearBrand(Recommeddress vo, Model model) {
+	public String workwearBrand(Recommeddress vo, Model model, Top top, Bottom bottom, Shoes shoes, Outers outer) {
 		ArrayList<Recommeddress> list = service.workwearStyle(vo);
+		ArrayList<Top> topList = service.workwearTopList(top);
+		ArrayList<Bottom> bottomList = service.workwearBottomList(bottom);
+		ArrayList<Shoes> shoesList = service.workwearShoesList(shoes);
+		ArrayList<Outers> outerList = service.workwearOuterList(outer);
 		model.addAttribute("workwearList", list);
+		model.addAttribute("topList", topList);
+		model.addAttribute("bottomList", bottomList);
+		model.addAttribute("shoesList", shoesList);
+		model.addAttribute("outerList", outerList);
 		return "/styling/workwearStyle";
 	}
 	

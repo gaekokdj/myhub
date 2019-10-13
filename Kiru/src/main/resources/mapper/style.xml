@@ -55,6 +55,78 @@
 		select * from outers where GENRE_NAME = 'minimal' and OUTER_PHOTO_NAME like '%01%' order by brand_name asc
 	</select>
 	
+	<select id="streetTopList" resultType="Top">
+		select * from top where GENRE_NAME = 'street' and TOP_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="streetBottomList" resultType="Bottom">
+		select * from bottom where GENRE_NAME = 'street' and BOTTOM_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="streetShoesList" resultType="Shoes">
+		select * from shoes where GENRE_NAME = 'street' and SHOES_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="streetOuterList" resultType="Outers">
+		select * from outers where GENRE_NAME = 'street' and OUTER_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="classicShoesList" resultType="Shoes">
+		select * from shoes where GENRE_NAME = 'classic' and SHOES_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="classicOuterList" resultType="Outers">
+		select * from outers where GENRE_NAME = 'classic' and OUTER_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="classiccasualTopList" resultType="Top">
+		select * from top where GENRE_NAME = 'classiccasual' and TOP_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="classiccasualBottomList" resultType="Bottom">
+		select * from bottom where GENRE_NAME = 'classiccasual' and BOTTOM_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="classiccasualShoesList" resultType="Shoes">
+		select * from shoes where GENRE_NAME = 'classiccasual' and SHOES_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="classiccasualOuterList" resultType="Outers">
+		select * from outers where GENRE_NAME = 'classiccasual' and OUTER_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="amecajiTopList" resultType="Top">
+		select * from top where GENRE_NAME = 'amecaji' and TOP_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="amecajiBottomList" resultType="Bottom">
+		select * from bottom where GENRE_NAME = 'amecaji' and BOTTOM_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="amecajiShoesList" resultType="Shoes">
+		select * from shoes where GENRE_NAME = 'amecaji' and SHOES_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="amecajiOuterList" resultType="Outers">
+		select * from outers where GENRE_NAME = 'amecaji' and OUTER_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="workwearTopList" resultType="Top">
+		select * from top where GENRE_NAME = 'workwear' and TOP_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="workwearBottomList" resultType="Bottom">
+		select * from bottom where GENRE_NAME = 'workwear' and BOTTOM_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="workwearShoesList" resultType="Shoes">
+		select * from shoes where GENRE_NAME = 'workwear' and SHOES_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
+	<select id="workwearOuterList" resultType="Outers">
+		select * from outers where GENRE_NAME = 'workwear' and OUTER_PHOTO_NAME like '%01%' order by brand_name asc
+	</select>
+	
 	<select id="viewOuter" resultType="Outers" parameterType="int">
 		select * from outers where outer_num = #{outer_num}
 	</select>

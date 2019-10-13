@@ -5,12 +5,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="INSPIRO">
+    <meta name="description" content="Themeforest Template Polo">
+    <!-- Document title -->
+    <!-- Stylesheets & Fonts -->
+    <link href="/sesoc/resources/css/plugins.css" rel="stylesheet">
+    <link href="/sesoc/resources/css/style.css" rel="stylesheet">
+    <link href="/sesoc/resources/css/responsive.css" rel="stylesheet">
+    <link href="/sesoc/resources/css/css.css" rel="stylesheet"/>
+<style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
 <meta charset="UTF-8">
-<title>클래식 캐주얼 스타일링</title>
-<link rel="stylesheet" type="text/css" href="/sesoc/resources/css/css.css" />
+<title>클래식캐주얼 스타일링</title>
+<style>
+	div.marg div {
+		margin: auto;
+	}
+	
+	#complete div.col-lg-6 {
+		margin: 0px auto;
+		padding: 5px;
+	}
+	#complete div.col-lg-3, #complete div.col-lg-2 {
+		margin: auto;
+	}
+	#complete a {
+		font-size: large;
+	}
+	
+</style>
+
 <script src="/sesoc/resources/js/jquery-3.4.1.js"></script>
 <script>
-	var brand_name;
+	var top_brand_name;
+	var bottom_brand_name;
+	var shoes_brand_name;
+	var outer_brand_name;
 		
 	var top_num;
 	var bottom_num;
@@ -90,35 +121,31 @@
 	}
 
 	function selectTopBrand(temp) {
-		brand_name = temp.value;
+		top_brand_name = temp.value;
 		
 		$("#topBrand").empty();
-		$("#topBrand").append("<td>" + "<a href='javascript:brandInner()'>" + 
-							"<input type='hidden' name='brand_name' value='" + brand_name + "'>" + brand_name + "</a>" + "</td>");
+		$("#topBrand").append("<a href='javascript:brandInner()'>" + "<input type='hidden' name='brand_name' value='" + top_brand_name + "'>" + top_brand_name + "</a>");
 	}
 	
 	function selectBottomBrand(temp) {
-		brand_name = temp.value;
+		bottom_brand_name = temp.value;
 		
 		$("#bottomBrand").empty();
-		$("#bottomBrand").append("<td>" + "<a href='javascript:brandBottom()'>" + 
-							"<input type='hidden' name='brand_name' value='" + brand_name + "'>" + brand_name + "</a>" + "</td>");
+		$("#bottomBrand").append("<a href='javascript:brandBottom()'>" + "<input type='hidden' name='brand_name' value='" + bottom_brand_name + "'>" + bottom_brand_name + "</a>");
 	}
 	
 	function selectShoesBrand(temp) {
-		brand_name = temp.value;
+		shoes_brand_name = temp.value;
 		
 		$("#shoesBrand").empty();
-		$("#shoesBrand").append("<td>" + "<a href='javascript:brandShoes()'>" + 
-							"<input type='hidden' name='brand_name' value='" + brand_name + "'>" + brand_name + "</a>" + "</td>");
+		$("#shoesBrand").append("<a href='javascript:brandShoes()'>" + "<input type='hidden' name='brand_name' value='" + shoes_brand_name + "'>" + shoes_brand_name + "</a>");
 	}
 	
 	function selectOuterBrand(temp) {
-		brand_name = temp.value;
+		outer_brand_name = temp.value;
 		
 		$("#outerBrand").empty();
-		$("#outerBrand").append("<td>" + "<a href='javascript:brandOuter()'>" + 
-							"<input type='hidden' name='brand_name' value='" + brand_name + "'>" + brand_name + "</a>" + "</td>");
+		$("#outerBrand").append("<a href='javascript:brandOuter()'>" + "<input type='hidden' name='brand_name' value='" + outer_brand_name + "'>" + outer_brand_name + "</a>");
 	}
 	
 	function brandInner(){
@@ -126,15 +153,23 @@
 			url:"classiccasualTopBrandList",
 			type:"GET",
 			dataType:"json",
-			data:{"brand_name":brand_name},
+			data:{"brand_name":top_brand_name},
 			success: function(result) {
-				$("#showTopBrand").empty();
+				var temp = 0.0;
 				$("#topBrand").empty();
-				$("#topBrand").append("<td>" + "<a href='javascript:backTopBrand()'>" + "뒤로" + "</a>" + "&nbsp" + "&nbsp" + brand_name + "</td>");
+				$("#topBrand").append("<a href='javascript:backBrandList(\"상의\");'>뒤로</a>&nbsp&nbsp" + top_brand_name);
+				
+				$("#top-owl-stage-div").empty();
 				$(result).each(function(index,item) {
-					$("#showTopBrand").append("<label><input type='radio' name='top_radio' value='" + item.top_num + "' onclick='selectTop(this)'>" +
-											"<img src=" + item.top_photo_name + " width='170' height='240' >" + "</label>");
-				})
+					temp += 250.2;
+					$("#top-owl-stage-div").append("<div class='owl-item' style='width: 250.2px;'>" +
+							"<label><input type='radio' name='top_radio' value='" + item.top_num + "' onclick='selectTop(this)'>" +
+									"<img src=" + item.top_photo_name + " >" + "</label>" + 
+									"</div>");
+				});
+				$("#top-owl-stage-div").css("width",temp);
+				$("#top-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+				$("#top-owl-stage-div").css("transition","all 0s ease 0s");
 			},
 			error: function() {
 				alert("error");
@@ -147,36 +182,52 @@
 			url:"classiccasualBottomBrandList",
 			type:"GET",
 			dataType:"json",
-			data:{"brand_name":brand_name},
+			data:{"brand_name":bottom_brand_name},
 			success: function(result) {
-				$("#showBottomBrand").empty();
+				var temp = 0.0;
 				$("#bottomBrand").empty();
-				$("#bottomBrand").append("<td>" + "<a href='javascript:backBottomBrand()'>" + "뒤로" + "</a>" + "&nbsp" + "&nbsp" + brand_name + "</td>");
+				$("#bottomBrand").append("<a href='javascript:backBrandList(\"하의\");'>뒤로</a>&nbsp&nbsp" + bottom_brand_name);
+				
+				$("#bottom-owl-stage-div").empty();
 				$(result).each(function(index,item) {
-					$("#showBottomBrand").append("<label><input type='radio' name='bottom_radio' value='" + item.bottom_num + "' onclick='selectBottom(this)'>" +
-											"<img src=" + item.bottom_photo_name + " width='170' height='240' >" + "</label>");
-				})
+					temp += 250.2;
+					$("#bottom-owl-stage-div").append("<div class='owl-item' style='width: 250.2px;'>" +
+							"<label><input type='radio' name='bottom_radio' value='" + item.bottom_num + "' onclick='selectBottom(this)'>" +
+										"<img src=" + item.bottom_photo_name + " >" + "</label>" + 
+										"</div>");
+				});
+				$("#bottom-owl-stage-div").css("width",temp);
+				$("#bottom-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+				$("#bottom-owl-stage-div").css("transition","all 0s ease 0s");
 			},
 			error: function() {
 				alert("error");
 			}
 		})
-	}
+	} 
 	
 	function brandShoes(){
 		$.ajax({
 			url:"classiccasualShoesBrandList",
 			type:"GET",
 			dataType:"json",
-			data:{"brand_name":brand_name},
+			data:{"brand_name":shoes_brand_name},
 			success: function(result) {
-				$("#showShoesBrand").empty();
+				var temp = 0.0;
 				$("#shoesBrand").empty();
-				$("#shoesBrand").append("<td>" + "<a href='javascript:backShoesBrand()'>" + "뒤로" + "</a>" + "&nbsp" + "&nbsp" + brand_name + "</td>");
-				$(result).each(function(index,item) {
-					$("#showShoesBrand").append("<label><input type='radio' name='shoes_radio' value='" + item.shoes_num + "' onclick='selectShoes(this)'>" +
-											"<img src=" + item.shoes_photo_name + " width='170' height='240' >" + "</label>");
-				})
+				$("#shoesBrand").append("<a href='javascript:backBrandList(\"신발\");'>뒤로</a>&nbsp&nbsp" + shoes_brand_name);
+				
+				$("#shoes-owl-stage-div").empty();
+				$(result).each(function(index,item){
+					temp += 250.2;
+					$("#shoes-owl-stage-div").append("<div class='owl-item' style='width: 250.2px;'>" + 
+							"<label><input type='radio' name='shoes_radio' value='" + item.shoes_num + "' onclick='selectShoes(this)'>" +
+											"<img src=" + item.shoes_photo_name + " >" + "</label>" +
+											"</div>");
+				});
+				$("#shoes-owl-stage-div").css("width",temp);
+				$("#shoes-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+				$("#shoes-owl-stage-div").css("transition","all 0s ease 0s");
 			},
 			error: function() {
 				alert("error");
@@ -189,15 +240,23 @@
 			url:"classiccasualOuterBrandList",
 			type:"GET",
 			dataType:"json",
-			data:{"brand_name":brand_name},
+			data:{"brand_name":outer_brand_name},
 			success: function(result) {
-				$("#showOuterBrand").empty();
+				var temp = 0.0;
 				$("#outerBrand").empty();
-				$("#outerBrand").append("<td>" + "<a href='javascript:backOuterBrand()'>" + "뒤로" + "</a>" + "&nbsp" + "&nbsp" + brand_name + "</td>");
+				$("#outerBrand").append("<a href='javascript:backBrandList(\"겉옷\");'>뒤로</a>&nbsp&nbsp" + outer_brand_name);
+				
+				$("#outer-owl-stage-div").empty();
 				$(result).each(function(index,item) {
-					$("#showOuterBrand").append("<label><input type='radio' name='outer_radio' value='" + item.outer_num + "' onclick='selectOuter(this)'>" +
-											"<img src=" + item.outer_photo_name + " width='170' height='240' >" + "</label>");
-				})
+					temp += 250.2;
+					$("#outer-owl-stage-div").append("<div class='owl-item' style='width: 250.2px;'>" + 
+							"<label><input type='radio' name='outer_radio' value='" + item.outer_num + "' onclick='selectOuter(this)'>" +
+											"<img src=" + item.outer_photo_name + "  >" + "</label>" +
+											"</div>");
+				});
+				$("#outer-owl-stage-div").css("width",temp);
+				$("#outer-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+				$("#outer-owl-stage-div").css("transition","all 0s ease 0s");
 			},
 			error: function() {
 				alert("error");
@@ -207,352 +266,426 @@
 	
 	function backTopBrand(){
 		$("#top").empty();
-		$("#top").append("<form name='go'>" + "<table><tr><td>" + "<table><tr><td>" + "<h3>상의</h3>" + "</td></tr>" + 
-						"<tr id='topBrand'>" + "</tr>" + "<tr><td id='showTopBrand'>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='꼬르넬리아니' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/corneliani/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='닥스' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/daks/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='더지지' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/thegigi/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='돈덥' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/dondup/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='라르디니' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/lardini/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='라코스테' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/lacoste/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='마시모알바' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/massimoalba/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='버버리' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/burberry/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='브루넬로쿠치넬리' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/brunellocucinelli/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='서플러스워드로브' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/surpluswardrobe/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='아스페시' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/aspesi/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='알두까다오스타' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/alducadaosta/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='알레그리' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/allegri/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='제이리움' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/jrium/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='톰브라운' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/thombrowne/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualTop_radio' value='폴로랄프로렌' onclick='selectTopBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/poloralphlauren/inner/01.jpg' width='170' height='240'>" + "</label>" + 
-						"</td></tr></table>" + "</td></tr></table></form>");
+		$("#top").append("<h3>상의</h3>" +
+						"<div id='topBrand'>" + "</div>" + "<div id='showTopBrand'>" + 
+						"<c:forEach items='${topList}' var='list'>" + 
+						"<label>" + "<input type='radio' name='classiccasualTop_radio' value='${list.brand_name}' onclick='selectTopBrand(this)'>" + 
+						"<img src='${list.top_photo_name}' width='170' height='240'>" + "</label>" + "</c:forEach>" + 
+						"</div>");
 	}
 	
 	function backBottomBrand(){
 		$("#bottom").empty();
-		$("#bottom").append("<form name='to'>" + "<table><tr><td>" + "<table><tr><td>" + "<h3>하의</h3>" + "</td></tr>" + 
-						"<tr id='bottomBrand'>" + "</tr>" + "<tr><td id='showBottomBrand'>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='꼬르넬리아니' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/corneliani/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='닥스' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/daks/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='더지지' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/thegigi/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='돈덥' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/dondup/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='라르디니' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/lardini/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='마시모알바' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/massimoalba/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='버버리' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/burberry/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='브루넬로쿠치넬리' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/brunellocucinelli/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='서플러스워드로브' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/surpluswardrobe/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='아스페시' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/aspesi/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='알두까다오스타' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/alducadaosta/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='알레그리' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/allegri/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='인코텍스' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/incotex/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='제이리움' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/jrium/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='톰브라운' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/thombrowne/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualBottom_radio' value='폴로랄프로렌' onclick='selectBottomBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/poloralphlauren/pants/01.jpg' width='170' height='240'>" + "</label>" + 
-						"</td></tr></table>" + "</td></tr></table></form>");
+		$("#bottom").append("<h3>하의</h3>" +
+						"<div id='bottomBrand'>" + "</div>" + "<div id='showBottomBrand'>" + 
+						"<c:forEach items='${bottomList}' var='list'>" + 
+						"<label>" + "<input type='radio' name='classiccasualBottom_radio' value='${list.brand_name}' onclick='selectBottomBrand(this)'>" + 
+						"<img src='${list.bottom_photo_name}' width='170' height='240'>" + "</label>" + "</c:forEach>" + 
+						"</div>");
 	}
 	
 	function backShoesBrand(){
 		$("#shoes").empty();
-		$("#shoes").append("<form name='the'>" + "<table><tr><td>" + "<table><tr><td>" + "<h3>신발</h3>" + "</td></tr>" + 
-						"<tr id='shoesBrand'>" + "</tr>" + "<tr><td id='showShoesBrand'>" + 
-						"<label>" + "<input type='radio' name='classicCasualShoes_radio' value='라코스테' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/lacoste/shoes/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualShoes_radio' value='락포트' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/rockport/shoes/01.jpg' width='170' height='240'>" + "</label>" +
-						"<label>" + "<input type='radio' name='classicCasualShoes_radio' value='바스' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/bass/shoes/01.jpg' width='170' height='240'>" + "</label>" +
-						"<label>" + "<input type='radio' name='classicCasualShoes_radio' value='산토니' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/santoni/shoes/01.jpg' width='170' height='240'>" + "</label>" +
-						"<label>" + "<input type='radio' name='classicCasualShoes_radio' value='처치스' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/churchs/shoes/01.jpg' width='170' height='240'>" + "</label>" +
-						"<label>" + "<input type='radio' name='classicCasualShoes_radio' value='탠디' onclick='selectShoesBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/tandy/shoes/01.jpg' width='170' height='240'>" + "</label>" +
-						"</td></tr></table>" + "</td></tr></table></form>");
+		$("#shoes").append("<h3>신발</h3>" +
+						"<div id='shoesBrand'>" + "</div>" + "<div id='showShoesBrand'>" + 
+						"<c:forEach items='${shoesList}' var='list'>" + 
+						"<label>" + "<input type='radio' name='classiccasualShoes_radio' value='${list.brand_name}' onclick='selectShoesBrand(this)'>" + 
+						"<img src='${list.shoes_photo_name}' width='170' height='240'>" + "</label>" + "</c:forEach>" + 
+						"</div>");
 	}
 	
-	function backOuterBrand(){
-		$("#outer").empty();
-		$("#outer").append("<form name='home'>" + "<table><tr><td>" + "<table><tr><td>" + "<h3>겉옷</h3>" + "</td></tr>" + 
-						"<tr id='outerBrand'>" + "</tr>" + "<tr><td id='showOuterBrand'>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='꼬르델리아니' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/corneliani/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='닥스' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/daks/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='더지지' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/thegigi/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='돈덥' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/dondup/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='라르디니' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/lardini/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='마시모알바' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/massimoalba/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='버버리' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/burberry/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='브루넬로쿠치넬리' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/brunellocucinelli/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='서플러스워드로브' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/surpluswardrobe/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='아스페시' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/aspesi/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='알두까다오스타' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/alducadaosta/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='알레그리' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/allegri/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='제이리움' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/jrium/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='톰브라운' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/thombrowne/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"<label>" + "<input type='radio' name='classicCasualOuter_radio' value='폴로랄프로렌' onclick='selectOuterBrand(this)'>" + 
-						"<img src='/sesoc/resources/img/brand/poloralphlauren/outer/01.jpg' width='170' height='240'>" + "</label>" + 
-						"</td></tr></table>" + "</td></tr></table></form>");
+	function backBrandList( parts ){
+		
+		switch ( parts ) {
+		case "상의" :
+			$("#topBrand").empty();
+			$("#top-owl-stage-div").empty();
+			$("#top-owl-stage-div").append(
+				"<c:forEach items='${topList}' var='list'>" + 
+					"<div class='owl-item' style='width: 250.2px;'>" + 
+					"<label><input type='radio' name='classiccasualTop_radio' value='${list.brand_name}' onclick='selectTopBrand(this)'> <img src='${list.top_photo_name}'></label>" + 
+					"</div>" +
+				"</c:forEach>"
+			);
+			$("#top-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+			$("#top-owl-stage-div").css("transition","all 0s ease 0s");
+			$("#top-owl-stage-div").css("width","6260");
+			break;
+		
+		case "하의" :
+			$("#bottomBrand").empty();
+			$("#bottom-owl-stage-div").empty();
+			$("#bottom-owl-stage-div").append(
+				"<c:forEach items='${bottomList}' var='list'>" + 
+					"<div class='owl-item' style='width: 250.2px;'>" + 
+					"<label><input type='radio' name='classiccasualBottom_radio' value='${list.brand_name}' onclick='selectBottomBrand(this)'> <img src='${list.bottom_photo_name}'></label>" + 
+					"</div>" +
+				"</c:forEach>"
+			);
+			$("#bottom-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+			$("#bottom-owl-stage-div").css("transition","all 0s ease 0s");
+			$("#bottom-owl-stage-div").css("width","6010");
+			break;
+		
+		case "신발" :
+			$("#shoesBrand").empty();
+			$("#shoes-owl-stage-div").empty();
+			$("#shoes-owl-stage-div").append(
+				"<c:forEach items='${shoesList}' var='list'>" + 
+					"<div class='owl-item' style='width: 250.2px;'>" + 
+					"<label><input type='radio' name='classiccasualShoes_radio' value='${list.brand_name}' onclick='selectShoesBrand(this)'> <img src='${list.shoes_photo_name}'></label>" + 
+					"</div>" +
+				"</c:forEach>"
+			);
+			$("#shoes-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+			$("#shoes-owl-stage-div").css("transition","all 0s ease 0s");
+			$("#shoes-owl-stage-div").css("width","3758");
+			break;
+		
+		case "겉옷" :
+			var temp = 0.0;
+			$("#outerBrand").empty();
+			$("#outer-owl-stage-div").empty();
+			$("#outer-owl-stage-div").append(
+				"<c:forEach items='${outerList}' var='list'>" +
+					"<div class='owl-item' style='width: 250.2px;'>" +
+					"<label><input type='radio' name='classiccasualOuter_radio' value='${list.brand_name}' onclick='selectOuterBrand(this)'> <img src='${list.outer_photo_name}'></label>" +
+					"</div>" +
+				"</c:forEach>"
+			);
+			$("#outer-owl-stage-div").css("transform","translate3d(0px, 0px, 0px)");
+			$("#outer-owl-stage-div").css("transition","all 0s ease 0s");
+			$("#outer-owl-stage-div").css("width", "6010" );
+			break;
+		};
 	}
 </script>
 </head>
-<body>
-	<div id="classiccasual">
-		<h1>클래식캐주얼</h1>
-		<table>
-			<c:forEach items="${classicCasulList}" var="recommed">
-				<th id="fashion1">
-					<img src="${recommed.recommed_photo_name}" width='200' height='200'>
-				</th>
-			</c:forEach>
-		</table>
-	</div>
-	
-	<div id="top">	
-		<form name="go">
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td><h3>상의</h3></td>
-						</tr>
-						<tr id="topBrand">
-						
-						</tr>
-						<tr>
-								<td id="showTopBrand">
-									<label><input type='radio' name='classicCasualTop_radio' value='꼬르넬리아니' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/corneliani/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='닥스' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/daks/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='더지지' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/thegigi/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='돈덥' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/dondup/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='라르디니' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/lardini/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='라코스테' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/lacoste/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='마시모알바' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/massimoalba/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='버버리' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/burberry/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='브루넬로쿠치넬리' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/brunellocucinelli/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='서플러스워드로브' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/surpluswardrobe/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='아스페시' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/aspesi/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='알두까다오스타' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/alducadaosta/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='알레그리' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/allegri/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='제이리움' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/jrium/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='톰브라운' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/thombrowne/inner/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualTop_radio' value='폴로랄프로렌' onclick='selectTopBrand(this)'>
-									<img src="/sesoc/resources/img/brand/poloralphlauren/inner/01.jpg" width='170' height='240'></label>
-								</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
-	
-	<div id="bottom">	
-		<form name="to">
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td><h3>하의</h3></td>
-						</tr>
-						<tr id="bottomBrand">
-						
-						</tr>
-						<tr>
-								<td id="showBottomBrand">
-									<label><input type='radio' name='classicCasualBottom_radio' value='꼬르넬리아니' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/corneliani/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='닥스' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/daks/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='더지지' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/thegigi/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='돈덥' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/dondup/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='라르디니' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/lardini/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='마시모알바' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/massimoalba/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='버버리' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/burberry/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='브루넬로쿠치넬리' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/brunellocucinelli/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='서플러스워드로브' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/surpluswardrobe/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='아스페시' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/aspesi/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='알두까다오스타' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/alducadaosta/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='알레그리' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/allegri/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='인코텍스' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/incotex/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='제이리움' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/jrium/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='톰브라운' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/thombrowne/pants/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualBottom_radio' value='폴로랄프로렌' onclick='selectBottomBrand(this)'>
-									<img src="/sesoc/resources/img/brand/poloralphlauren/pants/01.jpg" width='170' height='240'></label>
-								</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
-	
-	<div id="shoes">	
-		<form name="the">
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td><h3>신발</h3></td>
-						</tr>
-						<tr id="shoesBrand">
-						
-						</tr>
-						<tr>
-								<td id="showShoesBrand">
-									<label><input type='radio' name='classicCasualShoes_radio' value='라코스테' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/lacoste/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualShoes_radio' value='락포트' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/rockport/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualShoes_radio' value='바스' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/bass/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualShoes_radio' value='산토니' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/santoni/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualShoes_radio' value='처치스' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/churchs/shoes/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualShoes_radio' value='탠디' onclick='selectShoesBrand(this)'>
-									<img src="/sesoc/resources/img/brand/tandy/shoes/01.jpg" width='170' height='240'></label>
-								</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
-						
-	<div id="outer">	
-		<form name="home">
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td><h3>겉옷</h3></td>
-						</tr>
-						<tr id="outerBrand">
-						
-						</tr>
-						<tr>
-								<td id="showOuterBrand">
-									<label><input type='radio' name='classicCasualOuter_radio' value='꼬르넬리아니' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/corneliani/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='닥스' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/daks/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='더지지' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/thegigi/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='돈덥' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/dondup/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='라르디니' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/lardini/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='마시모알바' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/massimoalba/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='버버리' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/burberry/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='브루넬로쿠치넬리' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/brunellocucinelli/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='서플러스워드로브' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/surpluswardrobe/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='아스페시' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/aspesi/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='알두까다오스타' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/alducadaosta/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='알레그리' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/allegri/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='제이리움' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/jrium/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='톰브라운' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/thombrowne/outer/01.jpg" width='170' height='240'></label>
-									<label><input type='radio' name='classicCasualOuter_radio' value='폴로랄프로렌' onclick='selectOuterBrand(this)'>
-									<img src="/sesoc/resources/img/brand/poloralphlauren/outer/01.jpg" width='170' height='240'></label>
-								</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
-	
-	<div id="complete">
-			<a href="/sesoc/styling/selectGenre">장르선택으로 돌아가기</a>
-			<a href="javascript:viewclassiccasual()">코디 완료</a>
-	</div>
+<body class="breakpoint-xs">
+	<div class="body-inner">
+		
+		
+		<!-- HEADER -->
+        <header id="header" data-fullwidth="true" class="header-disable-fixed">
+			<div class="header-inner">
+				<div class="container">
+				
+					<div id="logo">
+						<a href="/sesoc/" class="logo" data-src-dark="/sesoc/resources/img/css/logo.png">
+							<img src="/sesoc/resources/img/css/logo.png" alt="Polo Logo">
+						</a>
+					</div>
+		
+					<div id="mainMenu-trigger">
+						<button class="lines-button x"> <span class="lines"></span> </button>
+					</div>
+		
+					<div id="mainMenu">
+						<div class="container">
+							<nav>
+								<ul>
+								
+									<li><a href="/sesoc/">메인화면</a></li>
+									<li class="dropdown"><a href="#">추천 의상</a>
+										<ul class="dropdown-menu" style="">
+											<li><a href="/sesoc/styling/bodychkForm">체형 입력</a></li>
+											<li><a href="/sesoc/styling/selectGenre">추천 의상 선택</a></li>
+										</ul>
+									</li>
+									<li><a href="/sesoc/board/boardList">게시판</a></li>
+									<li><a href="/sesoc/styling/myList">찜 의상</a></li>
+									
+									<li><a href="/sesoc/member/logout">로그아웃</a></li>
+									
+								</ul>
+							</nav>
+						</div>
+					</div>
+		
+				</div>
+			</div>
+		</header>
+        <!-- END: HEADER -->
+        
+        
+        <!-- Page title -->
+            <section id="page-title" class="dark" style="background-image:url(/sesoc/resources/images/pattern/pattern10.png)">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <ul>
+                            <li>KIRU</li>
+                        </ul>
+                    </div>
+                    <div class="page-title">
+                        <h1>클래식캐주얼 의상</h1>
+                        <span>원하는 의상을 선택하여 My List에 추가해 보세요!</span>
+                    </div>
+                </div>
+            </section>
+            <!-- end: Page title -->
+		
+		
+		<!-- SECTION -->
+		<section id="page-content">
+		<div class="row marg">
+ 		<div class="content col-lg-10">
+				<div id="classiccasual">
+					<div>
+					<div
+						class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+						data-items="5" data-dots="false">
+						<div class="owl-stage-outer">
+							<div class="owl-stage"
+								style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+									<c:forEach items="${classiccasualList}" var="recommed">
+										<div class="owl-item"
+												style="width: 207.2px; margin-right: 20px;">
+												<label><img src="${recommed.recommed_photo_name}" width="170" height="240"></label>
+											</div>
+									</c:forEach>
+							</div>
+						</div>
+						<div class="owl-nav">
+							<button type="button" role="presentation" class="owl-prev">
+								<i class="icon-chevron-left1"></i>
+							</button>
+							<button type="button" role="presentation" class="owl-next">
+								<i class="icon-chevron-right1"></i>
+							</button>
+						</div>
+					</div>
+					</div>
+					<div class="owl-dots disabled"></div>
+				</div>
+				</div>
+
+				
+				<div class="content col-lg-10">
+					<div id="top">
+						<h3>상의</h3>
+						<div id="topBrand"></div>
+							<div id="showTopBrand">
+								<div class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+									data-items="5" data-dots="false">
+									<div class="owl-stage-outer">
+										<div class="owl-stage" id="top-owl-stage-div" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+											<c:forEach items="${topList}" var="list">
+												<div class="owl-item" style="width: 207.2px; margin-right: 20px;">
+													<label><input type='radio' name='classiccasualTop_radio' value='${list.brand_name}' onclick='selectTopBrand(this)'>
+														<img src="${list.top_photo_name}" ></label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									<div class="owl-nav">
+										<button type="button" role="presentation" class="owl-prev">
+											<i class="icon-chevron-left1"></i>
+										</button>
+										<button type="button" role="presentation" class="owl-next">
+											<i class="icon-chevron-right1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="owl-dots disabled"></div>
+						</div>
+					</div>
+
+					<div class="content col-lg-10">
+						<div id="bottom">
+							<h3>하의</h3>
+							<div id="bottomBrand"></div>
+							<div id="showBottomBrand">
+								<div class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+									data-items="5" data-dots="false">
+									<div class="owl-stage-outer">
+										<div class="owl-stage" id="bottom-owl-stage-div" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+											<c:forEach items="${bottomList}" var="list">
+												<div class="owl-item" style="width: 207.2px; margin-right: 20px;">
+													<label><input type='radio' name='classiccasualBottom_radio' value='${list.brand_name}' onclick='selectBottomBrand(this)'>
+														<img src="${list.bottom_photo_name}"></label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									<div class="owl-nav">
+										<button type="button" role="presentation" class="owl-prev">
+											<i class="icon-chevron-left1"></i>
+										</button>
+										<button type="button" role="presentation" class="owl-next">
+											<i class="icon-chevron-right1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="owl-dots disabled"></div>
+						</div>
+					</div>
+
+					<div class="content col-lg-10">
+						<div id="shoes">
+							<h3>신발</h3>
+							<div id="shoesBrand"></div>
+							<div id="showShoesBrand">
+								<div class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+									data-items="5" data-dots="false">
+									<div class="owl-stage-outer">
+										<div class="owl-stage" id="shoes-owl-stage-div" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+											<c:forEach items="${shoesList}" var="list">
+												<div class="owl-item" style="width: 207.2px; margin-right: 20px;">
+													<label><input type='radio' name='classiccasualShoes_radio' value='${list.brand_name}' onclick='selectShoesBrand(this)'>
+														<img src="${list.shoes_photo_name}"></label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									<div class="owl-nav">
+										<button type="button" role="presentation" class="owl-prev">
+											<i class="icon-chevron-left1"></i>
+										</button>
+										<button type="button" role="presentation" class="owl-next">
+											<i class="icon-chevron-right1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="owl-dots disabled"></div>
+						</div>
+					</div>
+
+					<div class="content col-lg-10">
+						<div id="outer">
+							<h3>겉옷</h3>
+							<div id="outerBrand"></div>
+							<div id="showOuterBrand">
+								<div class="carousel carousel-loaded owl-carousel owl-loaded owl-drag"
+									data-items="5" data-dots="false">
+									<div class="owl-stage-outer">
+										<div class="owl-stage" id="outer-owl-stage-div" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 800px;">
+											<c:forEach items="${outerList}" var="list">
+												<div class="owl-item" style="width: 207.2px; margin-right: 20px;">
+													<label><input type='radio' name='classiccasualOuter_radio' value="${list.brand_name}" onclick='selectOuterBrand(this)'>
+													<img src="${list.outer_photo_name}"></label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+									<div class="owl-nav">
+										<button type="button" role="presentation" class="owl-prev">
+											<i class="icon-chevron-left1"></i>
+										</button>
+										<button type="button" role="presentation" class="owl-next">
+											<i class="icon-chevron-right1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="owl-dots disabled"></div>
+						</div>
+					</div>
+					
+					
+				</div>
+				
+					<div id="complete">
+						<div class="col-lg-6" >
+							<div class="row" >
+								<div class="col-lg-3" >
+									<a class="btn btn-light" href="/sesoc/styling/selectGenre">장르선택으로 돌아가기</a>
+								</div>
+								<div class="col-lg-2" >
+									<a class="btn btn-light" href="javascript:viewclassiccasual()">코디 완료</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<!-- SECTION:END -->
+			
+			
+			<!-- Footer -->
+		<footer id="footer">
+			<div class="footer-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+								<a href="#"><i class="far fa-clock"></i></a>
+								</div>
+								<h3>Working Days</h3>
+								<p><strong>Monday - Friday</strong>
+								<br>09:00 AM - 10:00 PM</p>
+								<p><strong>Saturday - Sunday</strong>
+								<br>10:00 AM - 06:00 PM</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+									<a href="#"><i class="fas fa-map-marker-alt"></i></a>
+								</div>
+								<h3>Caffe Location</h3>
+								<p><strong>Caffe Address:</strong>
+									<br> 795 Folsom Ave, Suite 600
+									<br> San Francisco, CA 94107
+									<br>
+									<br>
+								</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="icon-box effect small clean">
+								<div class="icon">
+								<a href="#"><i class="fa fa-phone"></i></a>
+								</div>
+								<h3>Caffe Contact</h3>
+									<p><strong>Phone:</strong>
+										<br> (123) 456-7890
+										<br> (987) 654-3210
+										<br>
+									</p>
+							</div>
+						</div>
+					</div>
+      			</div>
+    		</div>
+		    <div class="copyright-content">
+		      <div class="container">
+         
+		         <div class="row">
+		            <div class="col-lg-6">
+		              <!-- Social icons -->
+		              <div class="social-icons social-icons-colored float-left">
+		                <ul>
+		                    <li class="social-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
+		                  <li class="social-facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+		                  <li class="social-twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
+		                  <li class="social-vimeo"><a href="#"><i class="fab fa-vimeo"></i></a></li>
+		                  <li class="social-youtube"><a href="#"><i class="fab fa-youtube"></i></a></li>
+		                  <li class="social-pinterest"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+		                  <li class="social-gplus"><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+		                </ul>
+		              </div>
+		              <!-- end: Social icons --> 
+		          </div>
+
+					<div class="col-lg-6">
+				<div class="copyright-text text-center">&copy; 2019 POLO -  Responsive Multi-Purpose HTML5 Template. All Rights Reserved.<a href="http://www.inspiro-media.com" target="_blank">INSPIRO</a> </div>
+			</div>
+		</div>
+      </div>
+    </div>
+  </footer>
+  <!-- end: Footer -->
+			
+			
+	<!--Plugins-->
+	<script src="/sesoc/resources/js/jquery.js"></script>
+	<script src="/sesoc/resources/js/plugins.js"></script>
+
+	<!--Template functions-->
+	<script src="/sesoc/resources/js/functions.js"></script>
 </body>
 </html>
