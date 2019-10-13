@@ -36,6 +36,7 @@ public class StyleController {
 		return "/styling/bodychkForm";
 	}
 	
+	//ファッション選択
 	@RequestMapping(value = "/selectGenre", method = RequestMethod.GET)
 	public String selectGenre(Usertable vo, HttpSession session, Model model) {
 		ArrayList<Recommeddress> list = service.selectGenre(vo, session);
