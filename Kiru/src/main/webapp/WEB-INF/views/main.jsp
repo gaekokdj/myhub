@@ -186,7 +186,6 @@
 								<p><strong>Monday - Friday</strong>
 								<br>09:00 AM - 08:00 PM</p>
 								<p><strong>Saturday - Sunday</strong>
-								<br>주말은 우리도 좀 쉬자고!!!</p>
 							</div>
 						</div>
 						<div class="col-md-4">
