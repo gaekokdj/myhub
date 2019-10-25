@@ -219,7 +219,85 @@
                 <configuration>
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
-            </plugin>
+	            </plugin>
+				<!-- author by jaehunpark 현재 스프링 프로젝트 구조는 maven 기본 아키텍처에서 벗어났으므로, jenkins에서 
+					maven을 빌드하면, src/main/java와 src/main/resources의 기본 아키텍처를 기반으로 빌드를 한다. 그러므로, 
+					maven이 기본 아키텍처외에도 자바소스와 resources들을 같이 빌드할수있도록 플러그인을통해 maven에게 경로를 알려주도록한다 -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<!-- src/main/skeletone/java도 함께빌드를 하자 -->
+									<source>src/main/sesoc/java</source>
+								</sources>
+							</configuration>
+						</execution>
+						<execution>
+							<id>add-resource</id>
+							<phase>generate-resources</phase>
+							<goals>
+								<goal>add-resource</goal>
+							</goals>
+							<configuration>
+								<resources>
+									<resource>
+										<!-- src/main/skeletone/resources도 함께빌드를 하자. 이곳이 비지니스로직이 설정이 전부있다. -->
+										<directory>src/main/sesoc/resources</directory>
+									</resource>
+									<resource>
+										<!-- 추가로, 위의 소스레벨에 SQL xml이 함께있으므로, 소스레벨의 패키지를 적어주고 모든 SQL.xml을 검색해서 
+											같이 resources로인식한다 -->
+										<directory>src/main/sesoc/java</directory>
+										<includes>
+											<include>**/*SQL.xml</include>
+										</includes>
+									</resource>
+									<resource>
+										<!-- src/main/skeletone/java 디렉토리 하위의 *.SQL.xml resources에서 상위 패키지, 
+											src/main/java 내의 SQL을 끌어씀으로 .. -->
+										<directory>src/main/java</directory>
+										<includes>
+											<!-- 상위 소스레벨의 SQL도함께 resources로 인식할수있도록 설정 .. -->
+											<include>**/*SQL.xml</include>
+										</includes>
+									</resource>
+								</resources>
+							</configuration>
+						</execution>
+						<execution>
+							<id>add-test-source</id>
+							<phase>generate-test-sources</phase>
+							<goals>
+								<goal>add-test-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<!-- 해당경로의 unit test를 수행하자 -->
+									<source>src/test/sesoc/java</source>
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- maven이 설치된 개발버신의 jdk버전과 빌드 타켓 버전을 설정하도록한다. 설정하지않을시 MojoFailureException 
+					발생. 굉장히 낮은버전의 jdk로 mvn을 빌드하는듯. maven은 자동으로 jdk버전을 인식하지않으므로 꼭 설정해주도록하자 . -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.6.1</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
         </plugins>
     </build>
 </project>
